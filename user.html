@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Monitor KWH Meter - User</title>
+    
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/Logo/Logo_BMKG_(2010).png"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+</head>
+<body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <!-- Station Info -->
+            <div class="user">
+              <div class="info">
+                <a data-bs-toggle="collapse" href="#collapseStation" aria-expanded="true">
+                  <span>
+                    <div class="d-flex align-items-center">
+                      <img src="assets/img/Logo/BMG_2003.png" alt="BMG Logo" style="height: 35px; margin-right: 12px;">
+                <div>
+                        <h4 class="mb-1" style="font-size: 18px; font-weight: 600; color: #fff;">Stasiun Geofisika</h4>
+                        <p style="font-size: 14px; color: rgba(255,255,255,0.8); margin: 0;">Sleman</p>
+                </div>
+                    </div>
+                    <span class="caret"></span>
+                  </span>
+                </a>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+            <ul class="nav nav-secondary">
+              <li class="nav-item active">
+                <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                  <i class="fas fa-home"></i>
+                  <p>Monitoring KWH Meter</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="dashboard">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="user.html">
+                        <span class="sub-item">Dashboard</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <div class="d-flex align-items-center logo-container">
+                <a href="user.html" class="logo d-flex align-items-center">
+                  <img
+                    src="assets/img/Logo/BMG_2003.png"
+                    alt="BMKG Logo"
+                    class="navbar-brand logo-img"
+                    style="height: 45px; padding: 2px;"
+                  />
+                  <div class="logo-text text-white ms-3">
+                    <h4 class="mb-1" style="font-size: 18px; font-weight: 600;">Stasiun Geofisika</h4>
+                    <p class="mb-0" style="font-size: 14px; color: rgba(255,255,255,0.8);">Sleman</p>
+                  </div>
+                </a>
+              </div>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+            </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+            <div class="container-fluid">
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bell"></i>
+                    <span class="notification" id="notification-badge">0</span>
+                  </a>
+                  <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                    <li>
+                      <div class="dropdown-title">Status & Notifikasi</div>
+                    </li>
+                    <li>
+                      <div class="notif-scroll scrollbar-outer">
+                        <div class="notif-center" id="notification-list">
+                          <!-- Notifikasi akan diisi via JS -->
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <a class="see-all" href="javascript:void(0);" onclick="clearNotifications()">
+                        Tandai Sudah Dibaca <i class="fa fa-angle-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login Admin
+                  </a>
+                </li>
+              </ul>
+        </div>
+    </nav>
+          <!-- End Navbar -->
+        </div>
+
+        <div class="content">
+          <div class="page-inner">
+            <div class="page-header">
+              <h4 class="page-title">Dashboard Monitoring KWH Meter 3 Fasa</h4>
+                </div>
+
+            <!-- Alert System -->
+                    <div class="row">
+              <!-- Widget Total Konsumsi Daya -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                            </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Total Konsumsi</p>
+                          <h4 class="card-title" id="total-energy">0 kWh</h4>
+                          <p class="card-text mb-0 text-muted" id="last-update">Update: -</p>
+                          <p class="card-text mb-0 text-muted">Power Factor: <span id="power-factor">-</span></p>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+              </div>
+
+              <!-- Widget Biaya Energi -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-success bubble-shadow-small">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Biaya Energi</p>
+                          <h4 class="card-title" id="dashboard-energy-cost">Rp 0</h4>
+                          <p class="card-text mb-0 text-muted">Tarif: Rp 1.699,53/kWh</p>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                                </div>
+                            </div>
+
+              <!-- Widget Daya Fase R -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-info bubble-shadow-small">
+                          <i class="fas fa-plug"></i>
+                        </div>
+                                </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Fase R</p>
+                          <h4 class="card-title" id="power-r">0 W</h4>
+                          <p class="card-text mt-2 mb-0">
+                            Tegangan: <span id="voltage-r">0 V</span><br>
+                            Arus: <span id="current-r">0 A</span><br>
+                            KWH: <span id="energy-r">0 kWh</span>
+                          </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+              <!-- Widget Daya Fase S -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-success bubble-shadow-small">
+                          <i class="fas fa-plug"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Fase S</p>
+                          <h4 class="card-title" id="power-s">0 W</h4>
+                          <p class="card-text mt-2 mb-0">
+                            Tegangan: <span id="voltage-s">0 V</span><br>
+                            Arus: <span id="current-s">0 A</span><br>
+                            KWH: <span id="energy-s">0 kWh</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Widget Daya Fase T -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-warning bubble-shadow-small">
+                          <i class="fas fa-plug"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Fase T</p>
+                          <h4 class="card-title" id="power-t">0 W</h4>
+                          <p class="card-text mt-2 mb-0">
+                            Tegangan: <span id="voltage-t">0 V</span><br>
+                            Arus: <span id="current-t">0 A</span><br>
+                            KWH: <span id="energy-t">0 kWh</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grafik Konsumsi Daya -->
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">Grafik Konsumsi Daya per Fase</div>
+                      <div class="card-tools">
+                        <!-- Filter Waktu -->
+                        <div class="btn-group me-2">
+                          <select class="form-select" id="timeScale">
+                            <option value="day">Hari Ini</option>
+                            <option value="week">Minggu Ini</option>
+                            <option value="month">Bulan Ini</option>
+                            <option value="year">Tahun Ini</option>
+                          </select>
+                </div>
+                        <!-- Tombol Download -->
+                        <div class="btn-group">
+                          <button class="btn btn-primary btn-sm" id="downloadPDF">
+                            <i class="fas fa-file-pdf"></i> PDF
+                          </button>
+                          <button class="btn btn-success btn-sm" id="downloadExcel">
+                            <i class="fas fa-file-excel"></i> Excel
+                          </button>
+                </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container">
+                      <canvas id="powerConsumptionChart" style="width: 100%; height: 400px;"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Diagram Batas Konsumsi -->
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Batas Konsumsi Listrik</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container">
+                      <canvas id="consumptionLimitChart" style="width: 100%; height: 400px;"></canvas>
+                    </div>
+                    <div class="consumption-limit-container mt-3">
+                      <div class="d-flex justify-content-between mb-1">
+                        <span>Total Konsumsi</span>
+                        <span id="consumption-limit-text">0 kWh / 3,000 kWh</span>
+                      </div>
+                      <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
+                      </div>
+                      <div class="d-flex justify-content-between mb-1">
+                        <span>Estimasi Biaya</span>
+                        <span id="consumption-cost-text">Rp 0 / Rp 5.098.590</span>
+                      </div>
+                      <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle"></i> Biaya dihitung berdasarkan tarif Rp 1.699,53/kWh
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div class="container-fluid d-flex justify-content-between">
+            <nav class="pull-left">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    Stasiun Geofisika Sleman
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright">
+              Created by
+              <a href="#">MBKM Instrumentasi Stageof DIY 2025 </a>
+            </div>
+        </div>
+    </footer>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 justify-content-center position-relative">
+            <button type="button" class="btn-close position-absolute" style="right: 15px; top: 15px;" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center w-100">
+                        <img src="assets/img/Logo/BMG_2003.png" alt="BMKG Logo" style="height: 80px; margin-bottom: 15px;">
+                        <h4 class="modal-title" id="loginModalLabel">Stasiun Geofisika Sleman</h4>
+                        <p class="text-muted">Monitoring KWH Meter</p>
+                    </div>
+                </div>
+                <div class="modal-body px-4 py-2">
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label">Username atau Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Lupa Sandi?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Lupa Sandi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="forgotPasswordForm">
+                        <div class="form-group mb-3">
+                            <label for="resetEmail">Email</label>
+                            <input type="email" class="form-control" id="resetEmail" required>
+                            <small class="form-text text-muted">Masukkan email yang terdaftar untuk reset password</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kirim Link Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="resetPasswordForm">
+                        <input type="hidden" id="resetToken">
+                        <div class="form-group mb-3">
+                            <label for="newPassword">Password Baru</label>
+                            <input type="password" class="form-control" id="newPassword" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="confirmNewPassword">Konfirmasi Password Baru</label>
+                            <input type="password" class="form-control" id="confirmNewPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+    <script src="assets/js/kaiadmin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script>
+      // Deklarasi variabel global
+      let powerChart = null;
+      let limitChart = null;
+        let updateInterval = null;
+        let isPageActive = true;
+
+      // Fungsi untuk inisialisasi chart
+      function initializeCharts() {
+        // Inisialisasi power chart
+        const powerCtx = document.getElementById('powerConsumptionChart').getContext('2d');
+        powerChart = new Chart(powerCtx, {
+          type: 'line',
+          data: {
+            labels: [],
+            datasets: [{
+              label: 'Fase R',
+              data: [],
+              borderColor: 'rgb(255, 99, 132)',
+              tension: 0.1
+            }, {
+              label: 'Fase S',
+              data: [],
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+            }, {
+              label: 'Fase T',
+              data: [],
+              borderColor: 'rgb(255, 205, 86)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 4000,
+                title: {
+                  display: true,
+                  text: 'Daya (Watt)'
+                }
+              }
+            }
+          }
+        });
+
+        // Inisialisasi limit chart
+        const limitCtx = document.getElementById('consumptionLimitChart').getContext('2d');
+        limitChart = new Chart(limitCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Terpakai', 'Tersedia'],
+            datasets: [{
+              data: [0, 100],
+              backgroundColor: ['#198754', '#E7E9ED'], // Start with green color
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  padding: 20,
+                  usePointStyle: true
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const label = context.label || '';
+                    const value = context.raw || 0;
+                    return `${label}: ${value.toFixed(1)}%`;
+                  }
+                }
+              }
+            }
+          }
+        });
+        
+        // Verify chart initialization
+        console.log('Limit chart initialized in user.html:', limitChart ? 'Success' : 'Failed');
+        if (limitChart) {
+            console.log('Initial data in user.html:', limitChart.data.datasets[0].data);
+            }
+        }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeCharts();
+        fetchData();
+        setInterval(fetchData, 1000);
+
+        // PDF export button for chart
+        document.getElementById('downloadPDF').addEventListener('click', exportChartToPDF);
+        
+        // Excel export for chart data
+        document.getElementById('downloadExcel').addEventListener('click', function() {
+            // Get chart data
+            if (powerChart) {
+                try {
+                    const wb = XLSX.utils.book_new();
+                    const datasets = powerChart.data.datasets;
+                    const labels = powerChart.data.labels;
+                    
+                    // Create data array with headers
+                    const data = [
+                        ['Waktu', 'Fase R (W)', 'Fase S (W)', 'Fase T (W)']
+                    ];
+                    
+                    // Add data rows
+                    for (let i = 0; i < labels.length; i++) {
+                        const row = [
+                            labels[i],
+                            datasets[0].data[i] || 0,
+                            datasets[1].data[i] || 0, 
+                            datasets[2].data[i] || 0
+                        ];
+                        data.push(row);
+                    }
+                    
+                    // Create worksheet
+                    const ws = XLSX.utils.aoa_to_sheet(data);
+                    
+                    // Add worksheet to workbook
+                    XLSX.utils.book_append_sheet(wb, ws, 'Grafik Konsumsi Daya');
+                    
+                    // Save file
+                    XLSX.writeFile(wb, 'grafik_konsumsi_daya.xlsx');
+                    
+                    showNotification('File Excel berhasil diunduh', 'success');
+                } catch (error) {
+                    console.error('Error exporting chart to Excel:', error);
+                    showNotification('Gagal membuat file Excel: ' + error.message, 'error');
+                }
+            } else {
+                showNotification('Data grafik tidak tersedia', 'error');
+                }
+        });
+        });
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type = 'error') {
+            if (!isPageActive) return;
+
+            const notifications = {
+                error: {
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Error',
+                    type: 'danger'
+                },
+                warning: {
+                    icon: 'fas fa-exclamation-triangle',
+                    title: 'Peringatan',
+                    type: 'warning'
+                },
+                success: {
+                    icon: 'fas fa-check-circle',
+                    title: 'Sukses',
+                    type: 'success'
+              },
+              info: {
+                  icon: 'fas fa-info-circle',
+                  title: 'Info',
+                  type: 'info'
+                }
+            };
+            
+          // Fallback to error if type is not defined
+          const config = notifications[type] || notifications.error;
+            
+            $.notify({
+                icon: config.icon,
+                title: config.title,
+                message: message
+            }, {
+                type: config.type,
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 3000,
+                z_index: 2000
+            });
+        }
+
+        // Fungsi untuk memvalidasi data
+        function validateMeasurements(measurements) {
+            if (!measurements) {
+                throw new Error('Data pengukuran tidak tersedia');
+            }
+
+            const requiredFields = ['voltage', 'current', 'power', 'energy_total', 'power_factor'];
+            const missingFields = requiredFields.filter(field => !measurements[field]);
+            
+            if (missingFields.length > 0) {
+                throw new Error('Data tidak lengkap: ' + missingFields.join(', '));
+            }
+
+            ['voltage', 'current', 'power'].forEach(metric => {
+                ['R', 'S', 'T'].forEach(phase => {
+                    if (typeof measurements[metric][phase] !== 'number') {
+                        throw new Error(`Nilai ${metric} fase ${phase} tidak valid`);
+                    }
+                });
+            });
+
+            if (typeof measurements.energy_total !== 'number') {
+                throw new Error('Nilai total energi tidak valid');
+            }
+            if (typeof measurements.power_factor !== 'number') {
+                throw new Error('Nilai power factor tidak valid');
+            }
+
+            return true;
+        }
+
+        // Fungsi untuk memformat angka ke format rupiah
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(number);
+        }
+
+    // Fungsi untuk menghitung biaya listrik
+    function calculateElectricityCost(kwh) {
+      const rate = 1699.53; // Rp/kWh
+      return kwh * rate;
+    }
+
+    // Fungsi untuk mengupdate data
+    async function fetchData() {
+            if (!isPageActive) return;
+
+            try {
+                const response = await fetch('api/get_dashboard_data.php');
+                const result = await response.json();
+                
+                if (result.status === 'success' && result.data) {
+                    if (result.data.current && result.data.current.measurements) {
+                        try {
+                            validateMeasurements(result.data.current.measurements);
+              updateDashboardValues(result.data.current);
+              const warnings = updateWarnings(result.data);
+              updateNotifications(warnings);
+              updateCharts(result.data);
+              
+              if (result.data.current.timestamp) {
+                const lastUpdate = document.getElementById('last-update');
+                if (lastUpdate) {
+                  const updateTime = new Date(result.data.current.timestamp);
+                  lastUpdate.textContent = 'Update: ' + updateTime.toLocaleTimeString();
+                }
+              }
+            } catch (validationError) {
+              console.error('[KWH Monitor] Validation error:', validationError);
+              showNotification(validationError.message, 'warning');
+            }
+          } else {
+            throw new Error('Format data tidak sesuai');
+          }
+        } else {
+          throw new Error(result.message || 'Data tidak valid');
+        }
+      } catch (error) {
+        console.error('[KWH Monitor] Error:', error);
+        showNotification('Gagal memperbarui data: ' + error.message);
+      }
+    }
+
+    // Fungsi untuk mengupdate nilai dashboard
+    function updateDashboardValues(data) {
+      try {
+        if (data && data.measurements) {
+          const measurements = data.measurements;
+          
+          // Update energy total dan biaya
+          if (measurements.energy_total !== undefined) {
+            const energyTotal = measurements.energy_total;
+            document.getElementById('total-energy').textContent = energyTotal.toFixed(2) + ' kWh';
+                                
+            // Update biaya energi
+            const cost = calculateElectricityCost(energyTotal);
+            document.getElementById('dashboard-energy-cost').textContent = formatRupiah(cost);
+            
+            // Update batas konsumsi dengan nilai dari localStorage
+            const maxEnergy = parseInt(localStorage.getItem('maxConsumption')) || 3000;
+            const percentage = Math.min((energyTotal / maxEnergy) * 100, 100);
+            const remainingPercentage = Math.max(100 - percentage, 0);
+            
+            // Update text display
+            document.getElementById('consumption-limit-text').textContent = 
+              `${energyTotal.toFixed(2)} kWh / ${maxEnergy.toFixed(2)} kWh`;
+            
+            // Update progress bar
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+              progressBar.style.width = percentage + '%';
+              progressBar.textContent = percentage.toFixed(1) + '%';
+              
+              // Update progress bar color
+              if (percentage > 90) {
+                progressBar.className = 'progress-bar bg-danger';
+              } else if (percentage > 80) {
+                progressBar.className = 'progress-bar bg-warning';
+              } else {
+                progressBar.className = 'progress-bar bg-success';
+              }
+            }
+            
+            // Update cost display
+            const currentCost = calculateElectricityCost(energyTotal);
+            const maxCost = calculateElectricityCost(maxEnergy);
+            document.getElementById('consumption-cost-text').textContent = 
+              `${formatRupiah(currentCost)} / ${formatRupiah(maxCost)}`;
+
+            // Update chart
+            if (limitChart) {
+              console.log('Before update in user.html:', limitChart.data.datasets[0].data);
+              
+              // Update chart data
+              limitChart.data.datasets[0].data = [percentage, remainingPercentage];
+              
+              // Update chart color based on percentage
+              if (percentage > 90) {
+                limitChart.data.datasets[0].backgroundColor[0] = '#dc3545'; // Red
+              } else if (percentage > 80) {
+                limitChart.data.datasets[0].backgroundColor[0] = '#ffc107'; // Yellow
+              } else {
+                limitChart.data.datasets[0].backgroundColor[0] = '#198754'; // Green
+              }
+              
+              // Force a complete redraw of the chart
+              limitChart.update();
+              
+              // Extra steps to ensure update
+              setTimeout(() => {
+                  limitChart.render();
+                  console.log('After delayed render in user.html:', limitChart.data.datasets[0].data);
+              }, 100);
+              
+              console.log('After update in user.html:', limitChart.data.datasets[0].data);
+            } else {
+              console.error('Limit chart not initialized in user.html!');
+            }
+          }
+          
+          // Update power factor
+          const pf = document.getElementById('power-factor');
+          if (pf && typeof measurements.power_factor === 'number') {
+            pf.textContent = measurements.power_factor.toFixed(2);
+                                
+                                if (measurements.power_factor < 0.85) {
+            pf.classList.add('text-warning');
+                                } else {
+            pf.classList.remove('text-warning');
+                                }
+                            }
+
+          // Update nilai untuk setiap fase
+                            ['R', 'S', 'T'].forEach(phase => {
+                                try {
+                                    const powerElement = document.getElementById(`power-${phase.toLowerCase()}`);
+                                    if (powerElement && typeof measurements.power[phase] === 'number') {
+                                        powerElement.textContent = measurements.power[phase].toFixed(0) + ' W';
+                                  }
+
+              const voltageElement = document.getElementById(`voltage-${phase.toLowerCase()}`);
+              if (voltageElement && typeof measurements.voltage[phase] === 'number') {
+                const voltage = measurements.voltage[phase];
+                voltageElement.textContent = voltage.toFixed(1) + ' V';
+                
+                if (voltage < 198 || voltage > 242) {
+                  voltageElement.classList.add('text-danger');
+                } else {
+                  voltageElement.classList.remove('text-danger');
+                }
+              }
+
+              const currentElement = document.getElementById(`current-${phase.toLowerCase()}`);
+              if (currentElement && typeof measurements.current[phase] === 'number') {
+                currentElement.textContent = measurements.current[phase].toFixed(2) + ' A';
+                                    }
+                                } catch (error) {
+                                    console.error(`[KWH Monitor] Error updating phase ${phase}:`, error);
+                                }
+                            });
+        }
+      } catch (error) {
+        console.error('Error updating dashboard values:', error);
+        showNotification('Gagal memperbarui nilai dashboard: ' + error.message, 'error');
+      }
+    }
+
+    // Fungsi untuk mengupdate grafik
+    function updateCharts(data) {
+      if (!data || !data.history || !Array.isArray(data.history)) {
+        console.warn('Data history tidak valid atau kosong');
+        return;
+      }
+
+      if (powerChart) {
+        try {
+          const validData = data.history.filter(item => 
+            item && 
+            item.timestamp && 
+            item.measurements && 
+            item.measurements.power &&
+            typeof item.measurements.power.R === 'number' &&
+            typeof item.measurements.power.S === 'number' &&
+            typeof item.measurements.power.T === 'number'
+          );
+
+          if (validData.length > 0) {
+            const labels = validData.map(item => {
+              const time = new Date(item.timestamp);
+              return time.toLocaleTimeString();
+            });
+
+            const powerR = validData.map(item => item.measurements.power.R);
+            const powerS = validData.map(item => item.measurements.power.S);
+            const powerT = validData.map(item => item.measurements.power.T);
+
+            powerChart.data.labels = labels;
+            powerChart.data.datasets[0].data = powerR;
+            powerChart.data.datasets[1].data = powerS;
+            powerChart.data.datasets[2].data = powerT;
+            powerChart.update();
+          }
+        } catch (error) {
+          console.error('Error saat memperbarui power chart:', error);
+        }
+      }
+
+      // TIDAK mengupdate limitChart disini agar tidak konflik dengan pengaturan KWH
+      // Batas konsumsi diupdate di updateDashboardValues
+    }
+
+    // Fungsi untuk mengupdate warnings
+    function updateWarnings(data) {
+      try {
+        if (!data || !data.current || !data.current.measurements) {
+          console.warn('Data tidak lengkap untuk pemeriksaan warning');
+          return [];
+        }
+
+        const measurements = data.current.measurements;
+        const warnings = [];
+        
+        if (measurements.voltage) {
+          ['R', 'S', 'T'].forEach(phase => {
+            const voltage = measurements.voltage[phase];
+            if (typeof voltage === 'number' && (voltage < 198 || voltage > 242)) {
+              warnings.push({
+                type: 'danger',
+                title: 'Peringatan Tegangan',
+                message: `Fase ${phase}: ${voltage.toFixed(1)}V (Di luar batas normal)`
+              });
+                    }
+          });
+        }
+
+        if (typeof measurements.power_factor === 'number' && measurements.power_factor < 0.85) {
+          warnings.push({
+            type: 'warning',
+            title: 'Power Factor Rendah',
+            message: `PF: ${measurements.power_factor.toFixed(2)} (Di bawah 0.85)`
+          });
+                }
+
+        return warnings;
+            } catch (error) {
+        console.error('Error dalam updateWarnings:', error);
+        return [];
+      }
+    }
+
+    // Fungsi untuk mengupdate notifikasi
+    function updateNotifications(warnings) {
+      try {
+        const notificationList = document.getElementById('notification-list');
+        const notificationBadge = document.getElementById('notification-badge');
+        
+        if (!notificationList || !notificationBadge) return;
+        
+        notificationList.innerHTML = '';
+        
+        if (!Array.isArray(warnings) || warnings.length === 0) {
+          notificationList.innerHTML = '<div class="notif-content"><span class="block">Semua fase beroperasi normal</span></div>';
+          notificationBadge.style.display = 'none';
+          notificationBadge.textContent = '0';
+          return;
+            }
+
+        warnings.forEach(warning => {
+          if (warning && warning.type && warning.title && warning.message) {
+            const notifHtml = `
+              <a href="#">
+                <div class="notif-icon notif-${warning.type}">
+                  <i class="fas fa-${warning.type === 'danger' ? 'exclamation-circle' : 'exclamation-triangle'}"></i>
+                </div>
+                <div class="notif-content">
+                  <span class="block">${warning.title}: ${warning.message}</span>
+                  <span class="time">${new Date().toLocaleTimeString()}</span>
+                </div>
+              </a>
+            `;
+            notificationList.innerHTML += notifHtml;
+          }
+        });
+
+        const validWarningsCount = warnings.filter(w => w && w.type && w.title && w.message).length;
+        notificationBadge.textContent = validWarningsCount.toString();
+        notificationBadge.style.display = validWarningsCount > 0 ? 'inline' : 'none';
+      } catch (error) {
+        console.error('Error dalam updateNotifications:', error);
+      }
+    }
+
+        // Fungsi untuk handle login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            fetch('api/auth.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification('Login berhasil!', 'success');
+                    setTimeout(() => {
+                    window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    showNotification(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Terjadi kesalahan saat login: ' + error.message, 'error');
+            });
+        }
+
+    // Event listener untuk visibility change
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        isPageActive = false;
+        if (updateInterval) {
+          clearInterval(updateInterval);
+          updateInterval = null;
+        }
+      } else {
+        isPageActive = true;
+        if (!updateInterval) {
+          updateInterval = setInterval(fetchData, 1000);
+        }
+      }
+    });
+
+    // Event listener untuk beforeunload
+    window.addEventListener('beforeunload', function() {
+      if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+      }
+    });
+
+    // Fungsi untuk export chart ke PDF
+    function exportChartToPDF() {
+      try {
+          // Create new jsPDF instance
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF('landscape', 'mm', 'a4');
+          
+          // Add title
+          doc.setFontSize(16);
+          doc.text('Grafik Konsumsi Daya - Stasiun Geofisika Sleman', 15, 15);
+          
+          // Add metadata
+          doc.setFontSize(10);
+          const today = new Date();
+          doc.text(`Tanggal: ${today.toLocaleDateString('id-ID')}`, 15, 25);
+          doc.text(`Waktu: ${today.toLocaleTimeString('id-ID')}`, 15, 30);
+          
+          // Get chart as image
+          const powerCanvas = document.getElementById('powerConsumptionChart');
+          const powerChartImg = powerCanvas.toDataURL('image/png');
+          
+          // Add power chart
+          doc.text('Grafik Konsumsi Daya per Fase', 15, 40);
+          doc.addImage(powerChartImg, 'PNG', 15, 45, 270, 90);
+          
+          // Get consumption limit chart as image
+          const limitCanvas = document.getElementById('consumptionLimitChart');
+          const limitChartImg = limitCanvas.toDataURL('image/png');
+          
+          // Add consumption limit chart
+          doc.text('Batas Konsumsi Listrik', 15, 145);
+          doc.addImage(limitChartImg, 'PNG', 15, 150, 140, 90);
+          
+          // Add consumption info
+          doc.text('Informasi Konsumsi:', 160, 150);
+          
+          const totalEnergy = document.getElementById('total-energy').textContent;
+          const energyCost = document.getElementById('dashboard-energy-cost').textContent;
+          const powerFactor = document.getElementById('power-factor').textContent;
+          
+          doc.text(`Total Konsumsi: ${totalEnergy}`, 160, 160);
+          doc.text(`Biaya Energi: ${energyCost}`, 160, 170);
+          doc.text(`Power Factor: ${powerFactor}`, 160, 180);
+          
+          // Save the PDF
+          doc.save('grafik_kwh_meter.pdf');
+          
+          showNotification('File PDF berhasil diunduh', 'success');
+      } catch (error) {
+          console.error('Error exporting chart to PDF:', error);
+          showNotification('Gagal membuat file PDF: ' + error.message, 'error');
+      }
+  }
+
+    // Handle Forgot Password
+    document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('resetEmail').value;
+        
+        fetch('api/auth.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'forgot_password',
+                email: email
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                $.notify({
+                    icon: 'fas fa-check-circle',
+                    title: 'Success',
+                    message: 'Link reset password telah dikirim ke email Anda',
+                }, {
+                    type: 'success',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 3000,
+                });
+                $('#forgotPasswordModal').modal('hide');
+            } else {
+                $.notify({
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Error',
+                    message: data.message || 'Terjadi kesalahan saat mengirim link reset password',
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 3000,
+                });
+            }
+        })
+        .catch(error => {
+            $.notify({
+                icon: 'fas fa-exclamation-circle',
+                title: 'Error',
+                message: 'Terjadi kesalahan saat mengirim link reset password',
+            }, {
+                type: 'danger',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 3000,
+            });
+        });
+    });
+
+    // Handle Reset Password
+    document.getElementById('resetPasswordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const token = document.getElementById('resetToken').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+        if (newPassword !== confirmNewPassword) {
+            $.notify({
+                icon: 'fas fa-exclamation-circle',
+                title: 'Error',
+                message: 'Password baru dan konfirmasi password tidak cocok',
+            }, {
+                type: 'danger',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 3000,
+            });
+            return;
+        }
+
+        fetch('api/auth.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'reset_password',
+                token: token,
+                new_password: newPassword
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                $.notify({
+                    icon: 'fas fa-check-circle',
+                    title: 'Success',
+                    message: 'Password berhasil direset. Silakan login dengan password baru',
+                }, {
+                    type: 'success',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 3000,
+                });
+                $('#resetPasswordModal').modal('hide');
+            } else {
+                $.notify({
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Error',
+                    message: data.message || 'Terjadi kesalahan saat reset password',
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 3000,
+                });
+            }
+        })
+        .catch(error => {
+            $.notify({
+                icon: 'fas fa-exclamation-circle',
+                title: 'Error',
+                message: 'Terjadi kesalahan saat reset password',
+            }, {
+                type: 'danger',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 3000,
+            });
+        });
+    });
+
+    // Check for reset token in URL
+    window.addEventListener('load', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        if (token) {
+            document.getElementById('resetToken').value = token;
+            $('#resetPasswordModal').modal('show');
+        }
+    });
+    </script>
+
+    <!-- Add AutoTable for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+      .logo-container {
+        width: 100%;
+        transition: all 0.3s ease;
+        padding: 0 15px;
+      }
+
+      .logo {
+        text-decoration: none;
+        min-width: 45px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-img {
+        transition: all 0.3s ease;
+        margin-right: 0;
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .sidebar:not(.sidebar-mini) .logo-text {
+        opacity: 1;
+        visibility: visible;
+        width: auto;
+      }
+
+      @media (max-width: 991.98px) {
+        .nav-open .logo-text {
+          opacity: 1;
+          visibility: visible;
+          width: auto;
+        }
+        
+        .logo-container {
+          justify-content: flex-start;
+          padding: 0 10px;
+        }
+
+        .logo-img {
+          height: 40px !important;
+        }
+      }
+
+      .sidebar-mini .logo:hover .logo-text {
+        opacity: 1;
+        visibility: visible;
+        width: auto;
+      }
+
+      .sidebar-mini .logo-container {
+        justify-content: center;
+      }
+
+      .sidebar-mini .logo {
+        justify-content: center;
+      }
+
+      .user .info {
+        padding: 15px;
+        width: 100%;
+      }
+
+      .user .info a {
+        text-decoration: none;
+      }
+
+      .user .info .d-flex img {
+        flex-shrink: 0;
+      }
+
+      .user .info h4 {
+        line-height: 1.2;
+      }
+
+      .user .info p {
+        line-height: 1.4;
+      }
+
+      /* Dashboard card improvements */
+      .card {
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        margin-bottom: 24px;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      }
+
+      .card-stats {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-stats .card-body {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .card-stats .icon-big {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 24px;
+      }
+
+      .card-stats .numbers {
+        padding-left: 10px;
+      }
+
+      .card-stats .card-title {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .card-stats .card-category {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        letter-spacing: 0.5px;
+      }
+
+      .card-stats .card-text {
+        font-size: 13px;
+      }
+
+      /* Chart container improvements */
+      .chart-container {
+        padding: 10px;
+        height: 400px;
+      }
+
+      .consumption-limit-container {
+        padding: 15px 0;
+      }
+
+      /* Progress bar styling */
+      .progress {
+        height: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 15px;
+      }
+
+      .progress-bar {
+        transition: width 0.5s ease;
+        border-radius: 5px;
+      }
+
+      /* Alert box styling */
+      .alert {
+        border-radius: 8px;
+        border: none;
+        padding: 12px 15px;
+      }
+
+      .alert-info {
+        background-color: rgba(41, 128, 185, 0.1);
+        border-left: 4px solid #2980b9;
+        color: #2c3e50;
+      }
+
+      /* Table section improvements */
+      .filter-section {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .filter-section label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .filter-section .form-control,
+      .filter-section .btn {
+        border-radius: 8px;
+        height: 42px;
+      }
+
+      /* DataTable styling */
+      .dataTables_wrapper .row {
+        margin: 0;
+        padding: 10px 0;
+      }
+
+      .table {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .table thead th {
+        background-color: #f1f4f8;
+        border-bottom: none;
+        padding: 15px 10px;
+        font-weight: 600;
+        color: #505d69;
+      }
+
+      .table tbody td {
+        padding: 15px 10px;
+        vertical-align: middle;
+        border-top: 1px solid #edf2f7;
+      }
+
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #fafbfc;
+      }
+
+      .table-hover tbody tr:hover {
+        background-color: #f6f9fc;
+      }
+
+      /* Modal improvements */
+        #loginModal .modal-content {
+            border: none;
+            border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        overflow: hidden;
+        }
+
+        #loginModal .modal-header {
+        border-bottom: none;
+        padding: 30px 25px 0;
+        text-align: center;
+        }
+
+        #loginModal .modal-body {
+        padding: 20px 30px 40px;
+      }
+
+        #loginModal .input-group {
+        margin-bottom: 25px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        overflow: hidden;
+        }
+
+        #loginModal .input-group-text {
+        background-color: #f8f9fa;
+            border-right: none;
+        color: #6c757d;
+        padding: 0 15px;
+        }
+
+        #loginModal .form-control {
+            border-left: none;
+        border-radius: 0;
+        padding: 12px 15px;
+        height: auto;
+        }
+
+        #loginModal .form-control:focus {
+            box-shadow: none;
+        }
+
+        #loginModal .input-group:focus-within {
+        box-shadow: 0 0 0 0.25rem rgba(23,125,255,0.15);
+        }
+
+        #loginModal .input-group:focus-within .input-group-text,
+        #loginModal .input-group:focus-within .form-control {
+        border-color: #177dff;
+      }
+
+      #loginModal .btn-primary {
+        background-color: #177dff;
+        border-color: #177dff;
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+      }
+
+      #loginModal .btn-primary:hover {
+        background-color: #0f6ce1;
+        border-color: #0f6ce1;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(23,125,255,0.2);
+      }
+
+      /* Footer improvements */
+      .footer {
+        padding: 20px 0;
+        border-top: 1px solid #edf2f7;
+        background-color: #fff;
+      }
+
+      .footer .nav-link {
+        color: #505d69;
+        transition: all 0.3s ease;
+      }
+
+      .footer .nav-link:hover {
+        color: #177dff;
+      }
+
+      .footer .copyright {
+        color: #505d69;
+        font-size: 14px;
+      }
+
+      .footer .copyright a {
+        color: #177dff;
+        text-decoration: none;
+      }
+
+      /* Responsive improvements */
+      @media (max-width: 768px) {
+        .card-stats {
+          margin-bottom: 15px;
+        }
+        
+        .card-stats .icon-big {
+          width: 50px;
+          height: 50px;
+          font-size: 20px;
+        }
+        
+        .chart-container {
+          height: 300px;
+        }
+        
+        .filter-section {
+          padding: 15px;
+        }
+        
+        .table thead th, 
+        .table tbody td {
+          padding: 10px 8px;
+        }
+        
+        #loginModal .modal-body {
+          padding: 15px 20px 30px;
+        }
+        }
+    </style>
+</body>
+</html>

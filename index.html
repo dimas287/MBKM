@@ -1,0 +1,3864 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Monitor KWH Meter</title>
+    
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/Logo/Logo_BMKG_(2010).png"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <!-- <link rel="stylesheet" href="assets/css/demo.css" /> -->
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <!-- Station Info -->
+            <div class="user">
+              <div class="info">
+                <a data-bs-toggle="collapse" href="#collapseStation" aria-expanded="true">
+                  <span>
+                    <div class="d-flex align-items-center">
+                      <img src="assets/img/Logo/BMG_2003.png" alt="BMG Logo" style="height: 35px; margin-right: 12px;">
+                      <div>
+                        <h4 class="mb-1" style="font-size: 18px; font-weight: 600; color: #fff;">Stasiun Geofisika</h4>
+                        <p style="font-size: 14px; color: rgba(255,255,255,0.8); margin: 0;">Sleman</p>
+                      </div>
+                    </div>
+                    <span class="caret"></span>
+                  </span>
+                </a>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+            <ul class="nav nav-secondary">
+              <li class="nav-item active">
+                <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                  <i class="fas fa-home"></i>
+                  <p>Monitoring KWH Meter</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="dashboard">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="index.html">
+                        <span class="sub-item">Dashboard</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              
+                  </ul>
+                </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <div class="d-flex align-items-center logo-container">
+                <a href="index.html" class="logo d-flex align-items-center">
+                  <img
+                    src="assets/img/Logo/BMG_2003.png"
+                    alt="BMKG Logo"
+                    class="navbar-brand logo-img"
+                    style="height: 45px; padding: 2px;"
+                  />
+                  <div class="logo-text text-white ms-3">
+                    <h4 class="mb-1" style="font-size: 18px; font-weight: 600;">Stasiun Geofisika</h4>
+                    <p class="mb-0" style="font-size: 14px; color: rgba(255,255,255,0.8);">Sleman</p>
+                  </div>
+                </a>
+              </div>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+          >
+            <div class="container-fluid">
+              <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+              >
+              </nav>
+
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                <li
+                  class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"
+                >
+                  <a
+                    class="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    <i class="fa fa-search"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-search animated fadeIn">
+                    <form class="navbar-left navbar-form nav-search">
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          placeholder="Search ..."
+                          class="form-control"
+                        />
+                      </div>
+                    </form>
+                  </ul>
+                </li>
+                <li class="nav-item topbar-icon dropdown hidden-caret">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="notifDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="fa fa-bell"></i>
+                    <span class="notification" id="notification-badge">0</span>
+                  </a>
+                  <ul
+                    class="dropdown-menu notif-box animated fadeIn"
+                    aria-labelledby="notifDropdown"
+                  >
+                    <li>
+                      <div class="dropdown-title">Status & Notifikasi</div>
+                    </li>
+                    <li>
+                      <div class="notif-scroll scrollbar-outer">
+                        <div class="notif-center" id="notification-list">
+                          <!-- Notifikasi akan diisi via JS -->
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <a class="see-all" href="javascript:void(0);" onclick="clearNotifications()">
+                        Tandai Sudah Dibaca <i class="fa fa-angle-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown hidden-caret">
+                  <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                    <div class="avatar-sm">
+                      <img src="assets/img/Logo/BMG_2003.png" alt="Admin Profile" class="avatar-img rounded-circle border border-white shadow-sm" style="object-fit: contain; background-color: #ffffff; padding: 2px;">
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            <img src="assets/img/Logo/BMG_2003.png" alt="Admin Profile" class="avatar-img rounded border border-white shadow-sm" style="object-fit: contain; background-color: #ffffff; padding: 2px;">
+                          </div>
+                          <div class="u-text">
+                            <h4 id="admin-name">Loading...</h4>
+                            <p class="text-muted" id="admin-email">Loading...</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileSettingsModal">Pengaturan Profil</a>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kwhSettingsModal">Pengaturan KWH</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" onclick="handleLogout(); return false;">Keluar</a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+
+        <div class="content">
+          <div class="page-inner">
+            <div class="page-header">
+              <h4 class="page-title">Dashboard Monitoring KWH Meter 3 Fasa</h4>
+              </div>
+
+            <!-- Alert System -->
+            <div class="row">
+              <!-- Widget Total Konsumsi Daya -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-primary bubble-shadow-small">
+                          <i class="fas fa-bolt"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Total Konsumsi</p>
+                          <h4 class="card-title" id="total-energy">0 kWh</h4>
+                          <p class="card-text mb-0 text-muted" id="last-update">Update: -</p>
+                          <p class="card-text mb-0 text-muted">Power Factor: <span id="power-factor">-</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Widget Daya Fase R -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-info bubble-shadow-small">
+                          <i class="fas fa-plug"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Fase R</p>
+                          <h4 class="card-title" id="power-r">0 W</h4>
+                          <p class="card-text mt-2 mb-0">
+                            Tegangan: <span id="voltage-r">0 V</span><br>
+                            Arus: <span id="current-r">0 A</span><br>
+                            KWH: <span id="energy-r">0 kWh</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Widget Daya Fase S -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-success bubble-shadow-small">
+                          <i class="fas fa-plug"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Fase S</p>
+                          <h4 class="card-title" id="power-s">0 W</h4>
+                          <p class="card-text mt-2 mb-0">
+                            Tegangan: <span id="voltage-s">0 V</span><br>
+                            Arus: <span id="current-s">0 A</span><br>
+                            KWH: <span id="energy-s">0 kWh</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Widget Daya Fase T -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-warning bubble-shadow-small">
+                          <i class="fas fa-plug"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Fase T</p>
+                          <h4 class="card-title" id="power-t">0 W</h4>
+                          <p class="card-text mt-2 mb-0">
+                            Tegangan: <span id="voltage-t">0 V</span><br>
+                            Arus: <span id="current-t">0 A</span><br>
+                            KWH: <span id="energy-t">0 kWh</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Widget Biaya Energi -->
+              <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col-icon">
+                        <div class="icon-big text-center icon-success bubble-shadow-small">
+                          <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                      </div>
+                      <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                          <p class="card-category">Biaya Energi</p>
+                          <h4 class="card-title" id="dashboard-energy-cost">Rp 0</h4>
+                          <p class="card-text mb-0 text-muted">Tarif: Rp 1.699,53/kWh</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grafik Konsumsi Daya -->
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-head-row">
+                      <div class="card-title">Grafik Konsumsi Daya per Fase</div>
+                      <div class="card-tools">
+                        <!-- Filter Waktu -->
+                        <div class="btn-group me-2">
+                          <select class="form-select" id="timeScale">
+                            <option value="day">Hari Ini</option>
+                            <option value="week">Minggu Ini</option>
+                            <option value="month">Bulan Ini</option>
+                            <option value="year">Tahun Ini</option>
+                          </select>
+                      </div>
+                        <!-- Tombol Download -->
+                        <div class="btn-group">
+                          <button class="btn btn-primary btn-sm" id="downloadPDF">
+                            <i class="fas fa-file-pdf"></i> PDF
+                          </button>
+                          <button class="btn btn-success btn-sm" id="downloadExcel">
+                            <i class="fas fa-file-excel"></i> Excel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                                  </div>
+                  <div class="card-body">
+                    <div class="chart-container">
+                      <canvas id="powerConsumptionChart" style="width: 100%; height: 400px;"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
+              <!-- Diagram Batas Konsumsi -->
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Batas Konsumsi Listrik</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container">
+                      <canvas id="consumptionLimitChart" style="width: 100%; height: 400px;"></canvas>
+                    </div>
+                    <div class="consumption-limit-container mt-3">
+                      <div class="d-flex justify-content-between mb-1">
+                        <span>Total Konsumsi</span>
+                        <span id="consumption-limit-text">0 kWh / 3,000 kWh</span>
+                      </div>
+                      <div class="progress mb-3">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
+                      </div>
+                      <div class="d-flex justify-content-between mb-1">
+                        <span>Estimasi Biaya</span>
+                        <span id="consumption-cost-text">Rp 0 / Rp 5.098.590</span>
+                      </div>
+                      <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle"></i> Biaya dihitung berdasarkan tarif <span id="current-rate-display">Rp 1.699,53</span>/kWh
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Datatables Section -->
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="card-title">Data Pengukuran KWH Meter</h4>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-success btn-sm" id="exportExcel">
+                          <i class="fas fa-file-excel"></i> Export Excel
+                        </button>
+                        <button class="btn btn-danger btn-sm" id="exportPDF">
+                          <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- Filter Section -->
+                    <div class="row mb-3 filter-section">
+                      <div class="col-md-3">
+                        <label for="dateStart">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="dateStart">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="dateEnd">Tanggal Selesai</label>
+                        <input type="date" class="form-control" id="dateEnd">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="filterType">Filter</label>
+                        <select class="form-control" id="filterType">
+                          <option value="all">Semua Data</option>
+                          <option value="voltage_warning">Peringatan Tegangan</option>
+                          <option value="current_warning">Peringatan Arus</option>
+                          <option value="power_warning">Peringatan Daya</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3 d-flex align-items-end">
+                        <button class="btn btn-primary w-100" id="applyFilter">
+                          <i class="fas fa-filter"></i> Terapkan Filter
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="table-responsive">
+                      <table id="kwh-table" class="display table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th>ID Meter</th>
+                            <th>Waktu</th>
+                            <th>Tegangan R (V)</th>
+                            <th>Tegangan S (V)</th>
+                            <th>Tegangan T (V)</th>
+                            <th>Arus R (A)</th>
+                            <th>Arus S (A)</th>
+                            <th>Arus T (A)</th>
+                            <th>Daya R (W)</th>
+                            <th>Daya S (W)</th>
+                            <th>Daya T (W)</th>
+                            <th>Total Daya (W)</th>
+                            <th>Total Energi (kWh)</th>
+                            <th>Power Factor</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Ringkasan -->
+              <div class="col-md-12 mt-4">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h4 class="card-title">Ringkasan Data</h4>
+                        <p class="card-category">Statistik penggunaan listrik</p>
+                      </div>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-success btn-sm" id="summaryExportExcel">
+                          <i class="fas fa-file-excel"></i> Export Excel
+                        </button>
+                        <button class="btn btn-danger btn-sm" id="summaryExportPDF">
+                          <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- Filter Section for Summary -->
+                    <div class="row mb-4 filter-section">
+                      <div class="col-md-3">
+                        <label for="summaryDateStart">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="summaryDateStart">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="summaryDateEnd">Tanggal Selesai</label>
+                        <input type="date" class="form-control" id="summaryDateEnd">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="summaryPeriod">Periode</label>
+                        <select class="form-control" id="summaryPeriod">
+                          <option value="custom">Kustom</option>
+                          <option value="day">Hari Ini</option>
+                          <option value="week">Minggu Ini</option>
+                          <option value="month">Bulan Ini</option>
+                          <option value="year">Tahun Ini</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3 d-flex align-items-end">
+                        <div class="btn-group w-100">
+                          <button class="btn btn-primary" id="applySummaryFilter">
+                            <i class="fas fa-filter"></i> Terapkan
+                          </button>
+                          <button class="btn btn-secondary" id="resetSummaryFilter">
+                            <i class="fas fa-times"></i> Reset
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Summary Cards Row -->
+                    <div class="row" id="summary-cards-row">
+                      <div class="col-md-3">
+                        <div class="card card-stats card-primary">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-5">
+                                <div class="icon-big text-center">
+                                  <i class="fas fa-bolt"></i>
+                                </div>
+                              </div>
+                              <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                  <p class="card-category">Total Konsumsi</p>
+                                  <h4 class="card-title" id="summary-total-energy">0 kWh</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-stats card-info">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-5">
+                                <div class="icon-big text-center">
+                                  <i class="fas fa-plug"></i>
+                                </div>
+                              </div>
+                              <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                  <p class="card-category">Daya Rata-rata</p>
+                                  <h4 class="card-title" id="summary-avg-power">0 W</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-stats card-warning">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-5">
+                                <div class="icon-big text-center">
+                                  <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                              </div>
+                              <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                  <p class="card-category">Peringatan</p>
+                                  <h4 class="card-title" id="summary-warnings">0 Event</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="card card-stats card-success">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-5">
+                                <div class="icon-big text-center">
+                                  <i class="fas fa-check-circle"></i>
+                                </div>
+                              </div>
+                              <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                  <p class="card-category">Power Factor</p>
+                                  <h4 class="card-title" id="summary-power-factor">0</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Cost Card Placeholder -->
+                      <div class="col-md-3 mt-3" id="cost-card-container">
+                        <!-- This will be filled by JavaScript when data is loaded -->
+                      </div>
+                    </div>
+                    
+                    <!-- Total Cost Card (Fixed) -->
+                    <div class="row mt-3" id="cost-card-row">
+                      <div class="col-md-3">
+                        <div class="card card-stats card-success">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-5">
+                                <div class="icon-big text-center">
+                                  <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                              </div>
+                              <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                  <p class="card-category">Total Biaya</p>
+                                  <h4 class="card-title" id="summary-total-cost">Rp 0</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Summary Charts Section -->
+                    <div class="row mt-4">
+                      <div class="col-md-6">
+                        <div class="card">
+                          <div class="card-header">
+                            <h5 class="card-title">Konsumsi Energi Per Hari</h5>
+                          </div>
+                          <div class="card-body">
+                            <div class="chart-container">
+                              <canvas id="dailyConsumptionChart" style="width: 100%; height: 300px;"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="card">
+                          <div class="card-header">
+                            <h5 class="card-title">Distribusi Daya Per Fase</h5>
+                          </div>
+                          <div class="card-body">
+                            <div class="chart-container">
+                              <canvas id="phasePowerDistributionChart" style="width: 100%; height: 300px;"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+                <!-- Today's Energy Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Energi Hari Ini</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="energy-today">0 kWh</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yesterday's Energy Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Energi Kemarin</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="energy-yesterday">0 kWh</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Cost Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Biaya Hari Ini</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="cost-today">Rp 0</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yesterday's Cost Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Biaya Kemarin</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="cost-yesterday">Rp 0</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-money-bill fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div class="container-fluid d-flex justify-content-between">
+            <nav class="pull-left">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    Stasiun Geofisika Sleman
+                  </a>
+                </li>
+                
+              </ul>
+            </nav>
+            <div class="copyright">
+               Created by
+              <a href="#">MBKM Instrumentasi Stageof DIY 2025 </a>
+            </div>
+          </div>
+        </footer>
+      </div>
+              </div>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="assets/js/kaiadmin.min.js"></script>
+
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        // Deklarasi variabel global
+        let powerChart = null;
+        let limitChart = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            fetchData();
+            setInterval(fetchData, 1000);
+
+            // Initial update for daily energy cards
+            updateDailyEnergyCards();
+
+            // Event listener untuk form KWH consumption settings
+            document.getElementById('kwhConsumptionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateKwhConsumptionSettings();
+            });
+            
+            // Event listener untuk form KWH price settings
+            document.getElementById('kwhPriceForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateKwhPriceSettings();
+            });
+
+            // Load KWH settings saat modal dibuka
+            document.getElementById('kwhSettingsModal').addEventListener('show.bs.modal', function() {
+                loadKwhSettings();
+            });
+        });
+
+        function initializeCharts() {
+            // Inisialisasi power chart
+            const powerCtx = document.getElementById('powerConsumptionChart').getContext('2d');
+            powerChart = new Chart(powerCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Fase R',
+                        data: [],
+                        borderColor: 'rgb(255, 99, 132)',
+                        tension: 0.1
+                    }, {
+                        label: 'Fase S',
+                        data: [],
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }, {
+                        label: 'Fase T',
+                        data: [],
+                        borderColor: 'rgb(255, 205, 86)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 4000,
+                            title: {
+                                display: true,
+                                text: 'Daya (Watt)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Inisialisasi limit chart
+            const limitCtx = document.getElementById('consumptionLimitChart').getContext('2d');
+            limitChart = new Chart(limitCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Terpakai', 'Tersedia'],
+                    datasets: [{
+                        data: [0, 100],
+                        backgroundColor: ['#198754', '#E7E9ED'], // Start with green color
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Verify chart initialization
+            console.log('Limit chart initialized:', limitChart ? 'Success' : 'Failed');
+            if (limitChart) {
+                console.log('Initial data:', limitChart.data.datasets[0].data);
+            }
+        }
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, type = 'error') {
+            const notifications = {
+                error: {
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Error',
+                    type: 'danger'
+                },
+                warning: {
+                    icon: 'fas fa-exclamation-triangle',
+                    title: 'Peringatan',
+                    type: 'warning'
+                },
+                success: {
+                    icon: 'fas fa-check-circle',
+                    title: 'Sukses',
+                    type: 'success'
+                },
+                info: {
+                    icon: 'fas fa-info-circle',
+                    title: 'Info',
+                    type: 'info'
+                }
+            };
+            
+            // Fallback to error if type is not defined
+            const config = notifications[type] || notifications.error;
+            
+            $.notify({
+                icon: config.icon,
+                title: config.title,
+                message: message
+            }, {
+                type: config.type,
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 3000,
+                z_index: 2000
+            });
+        }
+
+        // Fungsi untuk memvalidasi data
+        function validateMeasurements(measurements) {
+            if (!measurements) {
+                throw new Error('Data pengukuran tidak tersedia');
+            }
+
+            const requiredFields = ['voltage', 'current', 'power', 'energy_total', 'power_factor'];
+            const missingFields = requiredFields.filter(field => !measurements[field]);
+            
+            if (missingFields.length > 0) {
+                throw new Error('Data tidak lengkap: ' + missingFields.join(', '));
+            }
+
+            ['voltage', 'current', 'power'].forEach(metric => {
+                ['R', 'S', 'T'].forEach(phase => {
+                    if (typeof measurements[metric][phase] !== 'number') {
+                        throw new Error(`Nilai ${metric} fase ${phase} tidak valid`);
+                    }
+                });
+            });
+
+            if (typeof measurements.energy_total !== 'number') {
+                throw new Error('Nilai total energi tidak valid');
+            }
+            if (typeof measurements.power_factor !== 'number') {
+                throw new Error('Nilai power factor tidak valid');
+            }
+
+            return true;
+        }
+
+        // Fungsi untuk memformat angka ke format rupiah
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(number);
+        }
+
+        // Fungsi untuk menghitung biaya listrik
+        function calculateElectricityCost(kwh) {
+            // Get custom rate from localStorage, default to 1699.53 if not set
+            const rate = parseFloat(localStorage.getItem('electricityRate')) || 1699.53;
+            return kwh * rate;
+        }
+
+        async function fetchData() {
+            try {
+                const response = await fetch('api/get_dashboard_data.php');
+                const result = await response.json();
+                
+                console.log('Response from server:', result); // Debug log
+                
+                if (result.status === 'success' && result.data) {
+                    if (result.data.current && result.data.current.measurements) {
+                        try {
+                            validateMeasurements(result.data.current.measurements);
+                            updateDashboardValues(result.data.current);
+                            const warnings = updateWarnings(result.data);
+                            updateNotifications(warnings);
+                            updateCharts(result.data);
+                            
+                            // Update daily energy cards
+                            updateDailyEnergyCards();
+                            
+                            if (result.data.current.timestamp) {
+                                const lastUpdate = document.getElementById('last-update');
+                                if (lastUpdate) {
+                                    const updateTime = new Date(result.data.current.timestamp);
+                                    lastUpdate.textContent = 'Update: ' + updateTime.toLocaleTimeString();
+                                }
+                            }
+                        } catch (validationError) {
+                            console.error('Validation error:', validationError);
+                            showNotification(validationError.message, 'warning');
+                        }
+                    } else {
+                        throw new Error('Format data tidak sesuai');
+                    }
+                } else {
+                    throw new Error(result.message || 'Data tidak valid');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Gagal memperbarui data: ' + error.message);
+            }
+        }
+
+        function updateDashboardValues(data) {
+            try {
+                if (data && data.measurements) {
+                    const measurements = data.measurements;
+                    
+                    // Update energy total dan biaya
+                    if (measurements.energy_total !== undefined) {
+                        const energyTotal = measurements.energy_total;
+                        document.getElementById('total-energy').textContent = energyTotal.toFixed(2) + ' kWh';
+                        
+                        // Update biaya energi
+                        const cost = calculateElectricityCost(energyTotal);
+                        document.getElementById('dashboard-energy-cost').textContent = formatRupiah(cost);
+                        
+                        // Update batas konsumsi dengan nilai dari localStorage
+                        const maxEnergy = parseInt(localStorage.getItem('maxConsumption')) || 3000;
+                        updateConsumptionLimit(maxEnergy);
+                    }
+                    
+                    // Update power factor
+                    const pf = document.getElementById('power-factor');
+                    if (pf && typeof measurements.power_factor === 'number') {
+                        pf.textContent = measurements.power_factor.toFixed(2);
+                        
+                        if (measurements.power_factor < 0.85) {
+                            pf.classList.add('text-warning');
+                        } else {
+                            pf.classList.remove('text-warning');
+                        }
+                    }
+
+                    // Update nilai untuk setiap fase
+                    ['R', 'S', 'T'].forEach(phase => {
+                        try {
+                            const powerElement = document.getElementById(`power-${phase.toLowerCase()}`);
+                            if (powerElement && typeof measurements.power[phase] === 'number') {
+                                powerElement.textContent = measurements.power[phase].toFixed(0) + ' W';
+                            }
+
+                            const voltageElement = document.getElementById(`voltage-${phase.toLowerCase()}`);
+                            if (voltageElement && typeof measurements.voltage[phase] === 'number') {
+                                const voltage = measurements.voltage[phase];
+                                voltageElement.textContent = voltage.toFixed(1) + ' V';
+                                
+                                if (voltage < 198 || voltage > 242) {
+                                    voltageElement.classList.add('text-danger');
+                                } else {
+                                    voltageElement.classList.remove('text-danger');
+                                }
+                            }
+
+                            const currentElement = document.getElementById(`current-${phase.toLowerCase()}`);
+                            if (currentElement && typeof measurements.current[phase] === 'number') {
+                                currentElement.textContent = measurements.current[phase].toFixed(2) + ' A';
+                            }
+                        } catch (error) {
+                            console.error(`Error updating phase ${phase}:`, error);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating dashboard values:', error);
+                showNotification('Gagal memperbarui nilai dashboard: ' + error.message, 'error');
+            }
+        }
+
+        function updateCharts(data) {
+            // Validasi data sebelum memproses
+            if (!data || !data.history || !Array.isArray(data.history)) {
+                console.warn('Data history tidak valid atau kosong');
+                return;
+            }
+
+            // Update power chart dengan data historis
+            if (powerChart) {
+                try {
+                    const validData = data.history.filter(item => 
+                        item && 
+                        item.timestamp && 
+                        item.measurements && 
+                        item.measurements.power &&
+                        typeof item.measurements.power.R === 'number' &&
+                        typeof item.measurements.power.S === 'number' &&
+                        typeof item.measurements.power.T === 'number'
+                    );
+
+                    if (validData.length > 0) {
+                        const labels = validData.map(item => {
+                            const time = new Date(item.timestamp);
+                            return time.toLocaleTimeString();
+                        });
+
+                        const powerR = validData.map(item => item.measurements.power.R);
+                        const powerS = validData.map(item => item.measurements.power.S);
+                        const powerT = validData.map(item => item.measurements.power.T);
+
+                        powerChart.data.labels = labels;
+                        powerChart.data.datasets[0].data = powerR;
+                        powerChart.data.datasets[1].data = powerS;
+                        powerChart.data.datasets[2].data = powerT;
+                        powerChart.update();
+                    } else {
+                        console.warn('Tidak ada data valid untuk ditampilkan di chart');
+                    }
+                } catch (error) {
+                    console.error('Error saat memperbarui power chart:', error);
+                }
+            }
+
+            // TIDAK mengupdate limitChart disini agar tidak konflik dengan pengaturan KWH
+            // Batas konsumsi diupdate di fungsi updateConsumptionLimit()
+        }
+
+        function updateStatistics(stats) {
+            // Update ringkasan statistik
+            const avgPower = document.getElementById('summary-avg-power');
+            if (avgPower) {
+                avgPower.textContent = stats.avg_power.toFixed(0) + ' W';
+            }
+
+            const powerFactor = document.getElementById('summary-power-factor');
+            if (powerFactor) {
+                powerFactor.textContent = stats.avg_pf.toFixed(2);
+                const pfCard = powerFactor.closest('.card-stats');
+                if (pfCard) {
+                    pfCard.className = 'card card-stats ' + (stats.min_pf < 0.85 ? 'card-danger' : 'card-success');
+                }
+            }
+        }
+
+        function updateWarnings(data) {
+            try {
+                if (!data || !data.current || !data.current.measurements) {
+                    console.warn('Data tidak lengkap untuk pemeriksaan warning');
+                    return [];
+                }
+
+                const measurements = data.current.measurements;
+                const warnings = [];
+                
+                // Cek tegangan (±10% dari 220V)
+                if (measurements.voltage) {
+                    ['R', 'S', 'T'].forEach(phase => {
+                        const voltage = measurements.voltage[phase];
+                        if (typeof voltage === 'number' && (voltage < 198 || voltage > 242)) {
+                            warnings.push({
+                                type: 'danger',
+                                title: 'Peringatan Tegangan',
+                                message: `Fase ${phase}: ${voltage.toFixed(1)}V (Di luar batas normal)`
+                            });
+                        }
+                    });
+                }
+
+                // Cek power factor
+                if (typeof measurements.power_factor === 'number' && measurements.power_factor < 0.85) {
+                    warnings.push({
+                        type: 'warning',
+                        title: 'Power Factor Rendah',
+                        message: `PF: ${measurements.power_factor.toFixed(2)} (Di bawah 0.85)`
+                    });
+                }
+
+                return warnings;
+
+            } catch (error) {
+                console.error('Error dalam updateWarnings:', error);
+                return [];
+            }
+        }
+
+        function updateNotifications(warnings) {
+            try {
+                const notificationList = document.getElementById('notification-list');
+                const notificationBadge = document.getElementById('notification-badge');
+                
+                if (!notificationList || !notificationBadge) return;
+                
+                // Reset notifikasi
+                notificationList.innerHTML = '';
+                
+                // Jika tidak ada warnings, tampilkan pesan normal
+                if (!Array.isArray(warnings) || warnings.length === 0) {
+                    notificationList.innerHTML = '<div class="notif-content"><span class="block">Semua fase beroperasi normal</span></div>';
+                    notificationBadge.style.display = 'none';
+                    notificationBadge.textContent = '0';
+                    return;
+                }
+
+                // Tampilkan setiap warning
+                warnings.forEach(warning => {
+                    if (warning && warning.type && warning.title && warning.message) {
+                        const notifHtml = `
+                            <a href="#">
+                                <div class="notif-icon notif-${warning.type}">
+                                    <i class="fas fa-${warning.type === 'danger' ? 'exclamation-circle' : 'exclamation-triangle'}"></i>
+                                </div>
+                                <div class="notif-content">
+                                    <span class="block">${warning.title}: ${warning.message}</span>
+                                    <span class="time">${new Date().toLocaleTimeString()}</span>
+                                </div>
+                            </a>
+                        `;
+                        notificationList.innerHTML += notifHtml;
+                    }
+                });
+
+                // Update badge
+                const validWarningsCount = warnings.filter(w => w && w.type && w.title && w.message).length;
+                notificationBadge.textContent = validWarningsCount.toString();
+                notificationBadge.style.display = validWarningsCount > 0 ? 'inline' : 'none';
+
+            } catch (error) {
+                console.error('Error dalam updateNotifications:', error);
+            }
+        }
+
+        // Fungsi untuk menangani pengaturan KWH
+        function updateKwhConsumptionSettings() {
+            const maxConsumption = document.getElementById('maxConsumption').value;
+            
+            if (maxConsumption < 100 || maxConsumption > 10000) {
+                showNotification('Batas maksimal konsumsi harus antara 100 dan 10000 kWh', 'error');
+                return;
+            }
+
+            localStorage.setItem('maxConsumption', maxConsumption);
+            showNotification('Pengaturan batas konsumsi berhasil diperbarui', 'success');
+            
+            // Update tampilan dashboard
+            updateConsumptionLimit(maxConsumption);
+        }
+        
+        // Fungsi untuk menangani pengaturan harga KWH
+        function updateKwhPriceSettings() {
+            const electricityRate = document.getElementById('electricityRate').value;
+            
+            if (electricityRate < 500 || electricityRate > 5000) {
+                showNotification('Tarif listrik harus antara Rp 500 dan Rp 5000 per kWh', 'error');
+                return;
+            }
+
+            localStorage.setItem('electricityRate', electricityRate);
+            showNotification('Pengaturan tarif listrik berhasil diperbarui', 'success');
+            
+            // Update tampilan dashboard dengan tarif baru
+            const energyTotal = parseFloat(document.getElementById('total-energy').textContent);
+            if (!isNaN(energyTotal)) {
+                // Update biaya energi di dashboard
+                const cost = calculateElectricityCost(energyTotal);
+                document.getElementById('dashboard-energy-cost').textContent = formatRupiah(cost);
+                
+                // Update tampilan batas konsumsi untuk memperbarui biaya
+                const maxConsumption = localStorage.getItem('maxConsumption') || 3000;
+                updateConsumptionLimit(maxConsumption);
+            }
+        }
+
+        // Fungsi untuk mengupdate tampilan batas konsumsi
+        function updateConsumptionLimit(maxConsumption) {
+            try {
+                const energyTotal = parseFloat(document.getElementById('total-energy').textContent);
+                if (isNaN(energyTotal)) {
+                    console.error('Invalid energy total value');
+                    return;
+                }
+
+                const percentage = Math.min((energyTotal / maxConsumption) * 100, 100);
+                const remainingPercentage = Math.max(100 - percentage, 0);
+                
+                console.log('Updating consumption limit:', {
+                    energyTotal,
+                    maxConsumption,
+                    percentage,
+                    remainingPercentage
+                });
+                
+                // Update text display
+                document.getElementById('consumption-limit-text').textContent = 
+                    `${energyTotal.toFixed(2)} kWh / ${maxConsumption.toFixed(2)} kWh`;
+                
+                // Update progress bar
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = percentage + '%';
+                    progressBar.textContent = percentage.toFixed(1) + '%';
+                    
+                    // Update progress bar color
+                    if (percentage > 90) {
+                        progressBar.className = 'progress-bar bg-danger';
+                    } else if (percentage > 80) {
+                        progressBar.className = 'progress-bar bg-warning';
+                    } else {
+                        progressBar.className = 'progress-bar bg-success';
+                    }
+                }
+                
+                // Get current rate from localStorage
+                const rate = parseFloat(localStorage.getItem('electricityRate')) || 1699.53;
+                
+                // Update rate display
+                const currentRateDisplay = document.getElementById('current-rate-display');
+                if (currentRateDisplay) {
+                    currentRateDisplay.textContent = formatRupiah(rate).replace('Rp ', 'Rp ');
+                }
+                
+                // Update cost display
+                const currentCost = calculateElectricityCost(energyTotal);
+                const maxCost = calculateElectricityCost(maxConsumption);
+                document.getElementById('consumption-cost-text').textContent = 
+                    `${formatRupiah(currentCost)} / ${formatRupiah(maxCost)}`;
+
+                // Update chart
+                if (limitChart) {
+                    console.log('Before update:', limitChart.data.datasets[0].data);
+                    
+                    // Update chart data
+                    limitChart.data.datasets[0].data = [percentage, remainingPercentage];
+                    
+                    // Update chart color based on percentage
+                    if (percentage > 90) {
+                        limitChart.data.datasets[0].backgroundColor[0] = '#dc3545'; // Red
+                    } else if (percentage > 80) {
+                        limitChart.data.datasets[0].backgroundColor[0] = '#ffc107'; // Yellow
+                    } else {
+                        limitChart.data.datasets[0].backgroundColor[0] = '#198754'; // Green
+                    }
+                    
+                    // Force a complete redraw of the chart
+                    limitChart.update();
+                    
+                    // Extra steps to ensure update
+                    setTimeout(() => {
+                        limitChart.render();
+                        console.log('After delayed render:', limitChart.data.datasets[0].data);
+                    }, 100);
+                    
+                    console.log('After update:', limitChart.data.datasets[0].data);
+                } else {
+                    console.error('Limit chart not initialized!');
+                }
+            } catch (error) {
+                console.error('Error updating consumption limit:', error);
+            }
+        }
+
+        // Fungsi untuk memuat pengaturan KWH
+        function loadKwhSettings() {
+            // Load consumption settings
+            const maxConsumption = localStorage.getItem('maxConsumption') || '3000';
+            document.getElementById('maxConsumption').value = maxConsumption;
+            
+            // Load price settings
+            const electricityRate = localStorage.getItem('electricityRate') || '1699.53';
+            document.getElementById('electricityRate').value = electricityRate;
+        }
+
+        // Fungsi untuk export data ke PDF
+        function exportToPDF() {
+            try {
+                // Create new jsPDF instance
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('landscape', 'mm', 'a4');
+                
+                // Add title
+                doc.setFontSize(16);
+                doc.text('Laporan Data KWH Meter - Stasiun Geofisika Sleman', 15, 15);
+                
+                // Add metadata
+                doc.setFontSize(10);
+                const today = new Date();
+                doc.text(`Tanggal: ${today.toLocaleDateString('id-ID')}`, 15, 25);
+                doc.text(`Waktu: ${today.toLocaleTimeString('id-ID')}`, 15, 30);
+                
+                // Get table data for report
+                const tableData = [];
+                const headers = [];
+                
+                // Get headers - use text content for simple headers
+                $('#kwh-table thead th').each(function() {
+                    headers.push($(this).text());
+                });
+                
+                // Get visible data rows from DataTable
+                const table = $('#kwh-table').DataTable();
+                table.rows({ search: 'applied' }).every(function() {
+                    const rowData = this.data();
+                    if (rowData) {
+                        const dataArray = [];
+                        // Extract data based on visible columns
+                        headers.forEach((header, index) => {
+                            // Get the appropriate property based on column
+                            const columnData = table.column(index).dataSrc();
+                            dataArray.push(rowData[columnData] || '');
+                        });
+                        tableData.push(dataArray);
+                    }
+                });
+                
+                // Format data for display
+                const formattedData = tableData.map(row => {
+                    return row.map((cell, index) => {
+                        // Format date
+                        if (index === 1 && cell) {
+                            return new Date(cell).toLocaleString('id-ID');
+                        }
+                        // Format numbers
+                        if (typeof cell === 'number') {
+                            return cell.toFixed(2);
+                        }
+                        return cell || '';
+                    });
+                });
+                
+                // Add table
+                doc.autoTable({
+                    head: [headers],
+                    body: formattedData,
+                    startY: 35,
+                    styles: {
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    headStyles: {
+                        fillColor: [23, 125, 255],
+                        textColor: 255
+                    }
+                });
+                
+                // Save the PDF
+                doc.save('laporan_kwh_meter.pdf');
+                
+                showNotification('File PDF berhasil diunduh', 'success');
+            } catch (error) {
+                console.error('Error exporting to PDF:', error);
+                showNotification('Gagal membuat file PDF: ' + error.message, 'error');
+            }
+        }
+
+        // Fungsi untuk export data ke Excel
+        function exportToExcel() {
+            try {
+                // Create workbook and worksheet
+                const wb = XLSX.utils.book_new();
+                
+                // Get table data
+                const table = $('#kwh-table').DataTable();
+                const headers = [];
+                const data = [];
+                
+                // Get headers
+                $('#kwh-table thead th').each(function() {
+                    headers.push($(this).text());
+                });
+                data.push(headers);
+                
+                // Get data rows from DataTable
+                table.rows({ search: 'applied' }).every(function() {
+                    const rowData = this.data();
+                    if (rowData) {
+                        const dataArray = [];
+                        headers.forEach((header, index) => {
+                            // Get the appropriate property based on column
+                            const columnData = table.column(index).dataSrc();
+                            let cellValue = rowData[columnData] || '';
+                            
+                            // Format date
+                            if (index === 1 && cellValue) {
+                                cellValue = new Date(cellValue).toLocaleString('id-ID');
+                            }
+                            
+                            dataArray.push(cellValue);
+                        });
+                        data.push(dataArray);
+                    }
+                });
+                
+                // Create worksheet from data
+                const ws = XLSX.utils.aoa_to_sheet(data);
+                
+                // Add worksheet to workbook
+                XLSX.utils.book_append_sheet(wb, ws, 'KWH Meter Data');
+                
+                // Save the Excel file
+                XLSX.writeFile(wb, 'laporan_kwh_meter.xlsx');
+                
+                showNotification('File Excel berhasil diunduh', 'success');
+            } catch (error) {
+                console.error('Error exporting to Excel:', error);
+                showNotification('Gagal membuat file Excel: ' + error.message, 'error');
+            }
+        }
+
+        // Fungsi untuk export chart ke PDF
+        function exportChartToPDF() {
+            try {
+                // Create new jsPDF instance
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('landscape', 'mm', 'a4');
+                
+                // Add title
+                doc.setFontSize(16);
+                doc.text('Grafik Konsumsi Daya - Stasiun Geofisika Sleman', 15, 15);
+                
+                // Add metadata
+                doc.setFontSize(10);
+                const today = new Date();
+                doc.text(`Tanggal: ${today.toLocaleDateString('id-ID')}`, 15, 25);
+                doc.text(`Waktu: ${today.toLocaleTimeString('id-ID')}`, 15, 30);
+                
+                // Get chart as image
+                const powerCanvas = document.getElementById('powerConsumptionChart');
+                const powerChartImg = powerCanvas.toDataURL('image/png');
+                
+                // Add power chart
+                doc.text('Grafik Konsumsi Daya per Fase', 15, 40);
+                doc.addImage(powerChartImg, 'PNG', 15, 45, 270, 90);
+                
+                // Get consumption limit chart as image
+                const limitCanvas = document.getElementById('consumptionLimitChart');
+                const limitChartImg = limitCanvas.toDataURL('image/png');
+                
+                // Add consumption limit chart
+                doc.text('Batas Konsumsi Listrik', 15, 145);
+                doc.addImage(limitChartImg, 'PNG', 15, 150, 140, 90);
+                
+                // Add consumption info
+                doc.text('Informasi Konsumsi:', 160, 150);
+                
+                const totalEnergy = document.getElementById('total-energy').textContent;
+                const energyCost = document.getElementById('dashboard-energy-cost').textContent;
+                const powerFactor = document.getElementById('power-factor').textContent;
+                
+                doc.text(`Total Konsumsi: ${totalEnergy}`, 160, 160);
+                doc.text(`Biaya Energi: ${energyCost}`, 160, 170);
+                doc.text(`Power Factor: ${powerFactor}`, 160, 180);
+                
+                // Add summary data
+                const avgPower = document.getElementById('summary-avg-power')?.textContent || 'N/A';
+                const warnings = document.getElementById('summary-warnings')?.textContent || 'N/A';
+                
+                if (document.getElementById('summary-avg-power')) {
+                    doc.text(`Daya Rata-rata: ${avgPower}`, 160, 190);
+                    doc.text(`Peringatan: ${warnings}`, 160, 200);
+                }
+                
+                // Save the PDF
+                doc.save('grafik_kwh_meter.pdf');
+                
+                showNotification('File PDF berhasil diunduh', 'success');
+            } catch (error) {
+                console.error('Error exporting chart to PDF:', error);
+                showNotification('Gagal membuat file PDF: ' + error.message, 'error');
+            }
+        }
+
+        // Event listeners untuk export buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // PDF export buttons for table
+            document.getElementById('exportPDF').addEventListener('click', exportToPDF);
+            
+            // Excel export buttons for table
+            document.getElementById('exportExcel').addEventListener('click', exportToExcel);
+            
+            // PDF export button for chart
+            document.getElementById('downloadPDF').addEventListener('click', exportChartToPDF);
+            
+            // Excel export for chart data
+            document.getElementById('downloadExcel').addEventListener('click', function() {
+                // Get chart data
+                if (powerChart) {
+                    try {
+                        const wb = XLSX.utils.book_new();
+                        const datasets = powerChart.data.datasets;
+                        const labels = powerChart.data.labels;
+                        
+                        // Create data array with headers
+                        const data = [
+                            ['Waktu', 'Fase R (W)', 'Fase S (W)', 'Fase T (W)']
+                        ];
+                        
+                        // Add data rows
+                        for (let i = 0; i < labels.length; i++) {
+                            const row = [
+                                labels[i],
+                                datasets[0].data[i] || 0,
+                                datasets[1].data[i] || 0, 
+                                datasets[2].data[i] || 0
+                            ];
+                            data.push(row);
+                        }
+                        
+                        // Create worksheet
+                        const ws = XLSX.utils.aoa_to_sheet(data);
+                        
+                        // Add worksheet to workbook
+                        XLSX.utils.book_append_sheet(wb, ws, 'Grafik Konsumsi Daya');
+                        
+                        // Save file
+                        XLSX.writeFile(wb, 'grafik_konsumsi_daya.xlsx');
+                        
+                        showNotification('File Excel berhasil diunduh', 'success');
+                    } catch (error) {
+                        console.error('Error exporting chart to Excel:', error);
+                        showNotification('Gagal membuat file Excel: ' + error.message, 'error');
+                    }
+                } else {
+                    showNotification('Data grafik tidak tersedia', 'error');
+                }
+            });
+            
+            // Filter button
+            document.getElementById('applyFilter').addEventListener('click', applyTableFilter);
+            
+            // Initialize date pickers with current date range
+            const today = new Date();
+            const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+            
+            document.getElementById('dateStart').valueAsDate = lastMonth;
+            document.getElementById('dateEnd').valueAsDate = today;
+        });
+
+        // Fungsi untuk menerapkan filter pada tabel
+        function applyTableFilter() {
+            const dateStart = document.getElementById('dateStart').value;
+            const dateEnd = document.getElementById('dateEnd').value;
+            const filterType = document.getElementById('filterType').value;
+            
+            console.log('Applying filter:', { dateStart, dateEnd, filterType });
+            
+            // If filter type is "all", consider resetting summary filter flag
+            if (filterType === 'all') {
+                localStorage.removeItem('summaryFilterActive');
+                localStorage.removeItem('summaryFilterStart');
+                localStorage.removeItem('summaryFilterEnd');
+            }
+            
+            // Convert to Date objects for comparison
+            const startDate = new Date(dateStart);
+            const endDate = new Date(dateEnd);
+            endDate.setHours(23, 59, 59); // Set to end of day
+            
+            // DataTable API to filter
+            const table = $('#kwh-table').DataTable();
+            
+            // Clear previous filters
+            table.search('').columns().search('').draw();
+            
+            // Custom filtering function
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                // Parse date from data (assuming date is in column 1)
+                const rowDate = new Date(data[1]);
+                
+                // Date range filter
+                const dateInRange = (!startDate || rowDate >= startDate) && 
+                                  (!endDate || rowDate <= endDate);
+                                  
+                if (!dateInRange) return false;
+                
+                // Additional filters based on filterType
+                if (filterType === 'all') return true;
+                
+                if (filterType === 'voltage_warning') {
+                    // Check voltage columns (2, 3, 4) for warnings
+                    const voltageR = parseFloat(data[2]);
+                    const voltageS = parseFloat(data[3]);
+                    const voltageT = parseFloat(data[4]);
+                    return (voltageR < 198 || voltageR > 242) || 
+                           (voltageS < 198 || voltageS > 242) || 
+                           (voltageT < 198 || voltageT > 242);
+                }
+                
+                if (filterType === 'current_warning') {
+                    // Check current columns (5, 6, 7) for high values
+                    const currentR = parseFloat(data[5]);
+                    const currentS = parseFloat(data[6]);
+                    const currentT = parseFloat(data[7]);
+                    return currentR > 10 || currentS > 10 || currentT > 10; // Example threshold
+                }
+                
+                if (filterType === 'power_warning') {
+                    // Check power columns (8, 9, 10) for high values
+                    const powerR = parseFloat(data[8]);
+                    const powerS = parseFloat(data[9]);
+                    const powerT = parseFloat(data[10]);
+                    return powerR > 2000 || powerS > 2000 || powerT > 2000; // Example threshold
+                }
+                
+                return true;
+            });
+            
+            // Redraw table with filters applied
+            table.draw();
+            
+            // Remove the custom filter function after use
+            $.fn.dataTable.ext.search.pop();
+            
+            // Update summary after filtering
+            updateFilteredSummary();
+            
+            showNotification('Filter diterapkan', 'success');
+        }
+
+        // Fungsi untuk mengupdate ringkasan data berdasarkan hasil filter
+        function updateFilteredSummary() {
+            const table = $('#kwh-table').DataTable();
+            const filteredData = table.rows({ search: 'applied' }).data();
+            
+            // Initialize counters
+            let totalEnergy = 0;
+            let totalPower = 0;
+            let warningCount = 0;
+            let pfValues = [];
+            
+            // Process each filtered row
+            for (let i = 0; i < filteredData.length; i++) {
+                const row = filteredData[i];
+                
+                // Total energy (column 12)
+                totalEnergy += parseFloat(row[12]) || 0;
+                
+                // Total power (column 11)
+                totalPower += parseFloat(row[11]) || 0;
+                
+                // Count warnings
+                const voltageR = parseFloat(row[2]);
+                const voltageS = parseFloat(row[3]);
+                const voltageT = parseFloat(row[4]);
+                const pf = parseFloat(row[13]);
+                
+                if ((voltageR < 198 || voltageR > 242) || 
+                    (voltageS < 198 || voltageS > 242) || 
+                    (voltageT < 198 || voltageT > 242) ||
+                    (pf < 0.85)) {
+                    warningCount++;
+                }
+                
+                // Collect power factors
+                if (!isNaN(pf)) {
+                    pfValues.push(pf);
+                }
+            }
+            
+            // Calculate averages
+            const avgPower = filteredData.length > 0 ? totalPower / filteredData.length : 0;
+            const avgPF = pfValues.length > 0 ? pfValues.reduce((a, b) => a + b, 0) / pfValues.length : 0;
+            
+            // Update summary elements
+            document.getElementById('summary-total-energy').textContent = totalEnergy.toFixed(2) + ' kWh';
+            document.getElementById('summary-avg-power').textContent = avgPower.toFixed(0) + ' W';
+            document.getElementById('summary-warnings').textContent = warningCount + ' Event';
+            document.getElementById('summary-power-factor').textContent = avgPF.toFixed(2);
+            
+            // Calculate cost for the filtered data
+            const totalCost = calculateElectricityCost(totalEnergy);
+            
+            // Update today and yesterday cards if energy-today element exists (it should)
+            if (document.getElementById('energy-today')) {
+                updateDailyEnergyCards(totalEnergy, totalCost);
+            }
+        }
+        
+        // Function to update today and yesterday energy cards
+        async function updateDailyEnergyCards(todayEnergy = null, todayCost = null) {
+            try {
+                // Get today's date
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Set to start of day
+                
+                // Get yesterday's date
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                // Format dates for API
+                const todayStr = today.toISOString();
+                const yesterdayStr = yesterday.toISOString();
+                const tomorrowStr = new Date(today.getTime() + 86400000).toISOString(); // today + 1 day
+                
+                // If today's energy is not provided, fetch it from the API
+                if (todayEnergy === null) {
+                    try {
+                        const response = await fetch(`api/get_summary_data.php?start=${todayStr}&end=${tomorrowStr}`);
+                        const result = await response.json();
+                        
+                        if (result.status === 'success' && result.data) {
+                            todayEnergy = result.data.total_energy || 0;
+                            todayCost = calculateElectricityCost(todayEnergy);
+                        }
+                    } catch (error) {
+                        console.warn('Error fetching today data:', error);
+                        todayEnergy = 0;
+                        todayCost = 0;
+                    }
+                }
+                
+                // Fetch yesterday's data
+                let yesterdayEnergy = 0;
+                let yesterdayCost = 0;
+                
+                try {
+                    const response = await fetch(`api/get_summary_data.php?start=${yesterdayStr}&end=${todayStr}`);
+                    const result = await response.json();
+                    
+                    if (result.status === 'success' && result.data) {
+                        yesterdayEnergy = result.data.total_energy || 0;
+                        yesterdayCost = calculateElectricityCost(yesterdayEnergy);
+                    }
+                } catch (error) {
+                    console.warn('Error fetching yesterday data:', error);
+                }
+                
+                // Update UI
+                document.getElementById('energy-today').textContent = todayEnergy.toFixed(2) + ' kWh';
+                document.getElementById('energy-yesterday').textContent = yesterdayEnergy.toFixed(2) + ' kWh';
+                document.getElementById('cost-today').textContent = formatRupiah(todayCost);
+                document.getElementById('cost-yesterday').textContent = formatRupiah(yesterdayCost);
+                
+            } catch (error) {
+                console.error('Error updating daily energy cards:', error);
+            }
+        }
+    </script>
+    <!-- Add AutoTable for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+    .logo-container {
+      width: 100%;
+      transition: all 0.3s ease;
+      padding: 0 15px;
+    }
+
+    .logo {
+      text-decoration: none;
+      min-width: 45px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      transition: all 0.3s ease;
+      margin-right: 0;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Sidebar expanded state */
+    .sidebar:not(.sidebar-mini) .logo-text {
+      opacity: 1;
+      visibility: visible;
+      width: auto;
+    }
+
+    /* Mobile state */
+    @media (max-width: 991.98px) {
+      .nav-open .logo-text {
+        opacity: 1;
+        visibility: visible;
+        width: auto;
+      }
+      
+      .logo-container {
+        justify-content: flex-start;
+        padding: 0 10px;
+      }
+
+      .logo-img {
+        height: 40px !important;
+      }
+    }
+
+    /* Hover effect for mini sidebar */
+    .sidebar-mini .logo:hover .logo-text {
+      opacity: 1;
+      visibility: visible;
+      width: auto;
+    }
+
+    /* Ensure logo is centered when text is hidden */
+    .sidebar-mini .logo-container {
+      justify-content: center;
+    }
+
+    .sidebar-mini .logo {
+      justify-content: center;
+    }
+
+    /* User info in sidebar */
+    .user .info {
+      padding: 15px;
+      width: 100%;
+    }
+
+    .user .info a {
+      text-decoration: none;
+    }
+
+    .user .info .d-flex img {
+      flex-shrink: 0;
+    }
+
+    .user .info h4 {
+      line-height: 1.2;
+    }
+
+    .user .info p {
+      line-height: 1.4;
+    }
+
+    /* Dashboard card improvements */
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      margin-bottom: 24px;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .card-stats {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-stats .card-body {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .card-stats .icon-big {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 24px;
+    }
+
+    .card-stats .numbers {
+      padding-left: 10px;
+    }
+
+    .card-stats .card-title {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .card-stats .card-category {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .card-stats .card-text {
+      font-size: 13px;
+    }
+
+    /* Chart container improvements */
+    .chart-container {
+      padding: 10px;
+      height: 400px;
+    }
+
+    .consumption-limit-container {
+      padding: 15px 0;
+    }
+
+    /* Progress bar styling */
+    .progress {
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      transition: width 0.5s ease;
+      border-radius: 5px;
+    }
+
+    /* Alert box styling */
+    .alert {
+      border-radius: 8px;
+      border: none;
+      padding: 12px 15px;
+    }
+
+    .alert-info {
+      background-color: rgba(41, 128, 185, 0.1);
+      border-left: 4px solid #2980b9;
+      color: #2c3e50;
+    }
+
+    /* Table section improvements */
+    .filter-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filter-section label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .filter-section .form-control,
+    .filter-section .btn {
+      border-radius: 8px;
+      height: 42px;
+    }
+
+    /* DataTable styling */
+    .dataTables_wrapper .row {
+      margin: 0;
+      padding: 10px 0;
+    }
+
+    .table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .table thead th {
+      background-color: #f1f4f8;
+      border-bottom: none;
+      padding: 15px 10px;
+      font-weight: 600;
+      color: #505d69;
+    }
+
+    .table tbody td {
+      padding: 15px 10px;
+      vertical-align: middle;
+      border-top: 1px solid #edf2f7;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: #fafbfc;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #f6f9fc;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid #edf2f7;
+      padding: 20px 25px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .modal-body {
+      padding: 25px;
+    }
+
+    .modal-footer {
+      border-top: 1px solid #edf2f7;
+      padding: 20px 25px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 10px 15px;
+      border: 1px solid #dce6ef;
+      height: auto;
+    }
+
+    .form-control:focus {
+      border-color: #177dff;
+      box-shadow: 0 0 0 0.2rem rgba(23,125,255,0.15);
+    }
+
+    .btn {
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #177dff;
+      border-color: #177dff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0f6ce1;
+      border-color: #0f6ce1;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(23,125,255,0.2);
+    }
+
+    /* Footer improvements */
+    .footer {
+      padding: 20px 0;
+      border-top: 1px solid #edf2f7;
+      background-color: #fff;
+    }
+
+    .footer .nav-link {
+      color: #505d69;
+      transition: all 0.3s ease;
+    }
+
+    .footer .nav-link:hover {
+      color: #177dff;
+    }
+
+    .footer .copyright {
+      color: #505d69;
+      font-size: 14px;
+    }
+
+    .footer .copyright a {
+      color: #177dff;
+      text-decoration: none;
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .card-stats {
+        margin-bottom: 15px;
+      }
+      
+      .card-stats .icon-big {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      .chart-container {
+        height: 300px;
+      }
+      
+      .filter-section {
+        padding: 15px;
+      }
+      
+      .table thead th, 
+      .table tbody td {
+        padding: 10px 8px;
+      }
+    }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButtons = document.querySelectorAll('.toggle-sidebar, .sidenav-toggler');
+        const sidebar = document.querySelector('.sidebar');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (window.innerWidth > 991.98) {
+                    document.body.classList.toggle('sidebar-mini');
+                } else {
+                    document.body.classList.toggle('nav-open');
+                }
+            });
+        });
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAuthStatus();
+    });
+
+    function checkAuthStatus() {
+        fetch('api/auth.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=check_auth'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                updateAdminInfo(data.data);
+            } else {
+                // Redirect ke halaman user jika belum login
+                window.location.href = 'user.html';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Redirect ke halaman user jika terjadi error
+            window.location.href = 'user.html';
+        });
+    }
+
+    function updateAdminInfo(admin) {
+        document.getElementById('admin-name').textContent = admin.nama;
+        document.getElementById('admin-email').textContent = admin.email;
+    }
+
+    function handleLogout() {
+        fetch('api/auth.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=logout'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                $.notify({
+                    icon: 'fas fa-check-circle',
+                    title: 'Success',
+                    message: 'Logout berhasil!',
+                }, {
+                    type: 'success',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
+                setTimeout(() => {
+                    window.location.href = 'user.html';
+                }, 1000);
+            } else {
+                $.notify({
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Error',
+                    message: data.message,
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            $.notify({
+                icon: 'fas fa-exclamation-circle',
+                title: 'Error',
+                message: 'Terjadi kesalahan saat logout',
+            }, {
+                type: 'danger',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                time: 1000,
+            });
+        });
+    }
+    </script>
+    <script>
+    // ... existing code ...
+
+    // Inisialisasi DataTable
+    $(document).ready(function() {
+      // Initialize DataTable for KWH table
+      const kwhTable = $('#kwh-table').DataTable({
+        processing: true,
+        serverSide: false,
+        responsive: true,
+        pageLength: 10,
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json'
+        },
+        data: [], // Initialize with empty data
+        columns: [
+          { data: 'meter_id' },
+          { data: 'timestamp', 
+            render: function(data) {
+              return new Date(data).toLocaleString('id-ID');
+            }
+          },
+          { data: 'voltage_r' },
+          { data: 'voltage_s' },
+          { data: 'voltage_t' },
+          { data: 'current_r' },
+          { data: 'current_s' },
+          { data: 'current_t' },
+          { data: 'power_r' },
+          { data: 'power_s' },
+          { data: 'power_t' },
+          { data: 'power_total' },
+          { data: 'energy_total' },
+          { data: 'power_factor' }
+        ],
+        order: [[1, 'desc']],
+        initComplete: function() {
+          // Load initial data when table is ready
+          updateTable();
+          // Also update the summary section
+          updateFilteredSummary();
+        }
+      });
+
+      // Update tabel ketika data baru diterima
+      async function updateTable() {
+        try {
+          const response = await fetch('api/get_dashboard_data.php');
+          const result = await response.json();
+          
+          if (result.status === 'success' && result.data.table && result.data.table.data) {
+            console.log('Received table data:', result.data.table.data);
+            kwhTable.clear();
+            kwhTable.rows.add(result.data.table.data);
+            kwhTable.draw();
+            
+            // Check if a custom filter is active from localStorage
+            const isFilterActive = localStorage.getItem('summaryFilterActive') === 'true';
+            
+            if (!isFilterActive) {
+              // Only update summary if no custom filter is active
+              updateFilteredSummary();
+            } else {
+              // If a filter is active, maintain the filtered view by reapplying filter
+              const startDate = new Date(localStorage.getItem('summaryFilterStart'));
+              const endDate = new Date(localStorage.getItem('summaryFilterEnd'));
+              
+              // Make sure dates are still valid before attempting to filter
+              if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+                console.log('Maintaining filtered view with date range:', 
+                            startDate.toLocaleDateString(), 'to', 
+                            endDate.toLocaleDateString());
+                
+                // Apply custom filter to maintain the filtered view
+                applyCustomSummaryFilter(startDate, endDate);
+              }
+            }
+          } else {
+            console.warn('No table data received or invalid data format:', result);
+          }
+        } catch (error) {
+          console.error('Error updating table:', error);
+          showNotification('Gagal memperbarui tabel: ' + error.message, 'error');
+        }
+      }
+
+      // Update data setiap 10 detik
+      setInterval(updateTable, 10000);
+      
+      // Initial load
+      updateTable();
+    });
+    // ... existing code ...
+    </script>
+
+    <style>
+    /* Styling untuk tabel */
+    .table-responsive {
+        margin: 0;
+        padding: 0;
+    }
+
+    .dataTables_wrapper .row {
+        margin: 0;
+        align-items: center;
+    }
+
+    .dataTables_length, 
+    .dataTables_filter {
+        padding: 15px;
+    }
+
+    .dataTables_info,
+    .dataTables_paginate {
+        padding: 15px;
+    }
+
+    .dataTables_filter input {
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 5px 10px;
+    }
+
+    .paginate_button {
+        padding: 5px 10px !important;
+    }
+
+    .badge {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+        .card-header {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .card-header .d-flex.gap-2 {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .card-header button {
+            flex: 1;
+        }
+
+        .dataTables_wrapper .row {
+            margin: 0;
+        }
+
+        .dataTables_length, 
+        .dataTables_filter,
+        .dataTables_info,
+        .dataTables_paginate {
+            padding: 10px 15px;
+            margin: 0;
+        }
+
+        .dataTables_filter,
+        .dataTables_paginate {
+            float: none !important;
+        }
+
+        .dataTables_filter input {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+    }
+
+    /* Table scroll on mobile */
+    @media (max-width: 576px) {
+        .table-responsive {
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table td, .table th {
+            white-space: nowrap;
+            min-width: 100px;
+        }
+
+        .table td:first-child, 
+        .table th:first-child {
+            position: sticky;
+            left: 0;
+            background: #fff;
+            z-index: 1;
+        }
+    }
+    </style>
+
+    <!-- Modal Pengaturan Profil -->
+    <div class="modal fade" id="profileSettingsModal" tabindex="-1" aria-labelledby="profileSettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileSettingsModalLabel">Pengaturan Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Profil</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab">Password</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="profileTabsContent">
+                        <!-- Tab Profil -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                            <form id="profileForm">
+                                <div class="mb-3">
+                                    <label for="profileName" class="form-label">Nama</label>
+                                    <input type="text" class="form-control" id="profileName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="profileEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="profileEmail" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </form>
+                        </div>
+                        <!-- Tab Password -->
+                        <div class="tab-pane fade" id="password" role="tabpanel">
+                            <form id="passwordForm">
+                                <div class="mb-3">
+                                    <label for="currentPassword" class="form-label">Password Saat Ini</label>
+                                    <input type="password" class="form-control" id="currentPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newPassword" class="form-label">Password Baru</label>
+                                    <input type="password" class="form-control" id="newPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ubah Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Fungsi untuk menangani pengaturan profil
+    document.addEventListener('DOMContentLoaded', function() {
+        // Event listener untuk form profil
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            updateProfile();
+        });
+
+        // Event listener untuk form password
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            updatePassword();
+        });
+
+        // Load data profil saat modal dibuka
+        document.getElementById('profileSettingsModal').addEventListener('show.bs.modal', function() {
+            loadProfileData();
+        });
+    });
+
+    // Fungsi untuk memuat data profil
+    function loadProfileData() {
+        fetch('api/auth.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=get_profile'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                document.getElementById('profileName').value = data.data.nama;
+                document.getElementById('profileEmail').value = data.data.email;
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Gagal memuat data profil', 'error');
+        });
+    }
+
+    // Fungsi untuk memperbarui profil
+    function updateProfile() {
+        const formData = new FormData();
+        formData.append('action', 'update_profile');
+        formData.append('nama', document.getElementById('profileName').value);
+        formData.append('email', document.getElementById('profileEmail').value);
+
+        fetch('api/auth.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification('Profil berhasil diperbarui', 'success');
+                // Update nama di navbar
+                document.getElementById('admin-name').textContent = data.data.nama;
+                document.getElementById('admin-email').textContent = data.data.email;
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Gagal memperbarui profil', 'error');
+        });
+    }
+
+    // Fungsi untuk memperbarui password
+    function updatePassword() {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (newPassword !== confirmPassword) {
+            showNotification('Password baru dan konfirmasi password tidak cocok', 'error');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('action', 'update_password');
+        formData.append('current_password', currentPassword);
+        formData.append('new_password', newPassword);
+
+        fetch('api/auth.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification('Password berhasil diperbarui', 'success');
+                // Reset form
+                document.getElementById('passwordForm').reset();
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Gagal memperbarui password', 'error');
+        });
+    }
+    </script>
+
+    <style>
+    /* Styling untuk modal pengaturan profil */
+    #profileSettingsModal .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    #profileSettingsModal .modal-header {
+        border-bottom: 1px solid #eee;
+        padding: 1.5rem;
+    }
+
+    #profileSettingsModal .modal-body {
+        padding: 1.5rem;
+    }
+
+    #profileSettingsModal .nav-tabs {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    #profileSettingsModal .nav-tabs .nav-link {
+        border: none;
+        color: #6c757d;
+        padding: 0.75rem 1.25rem;
+        font-weight: 500;
+    }
+
+    #profileSettingsModal .nav-tabs .nav-link.active {
+        color: #177dff;
+        border-bottom: 2px solid #177dff;
+        background: none;
+    }
+
+    #profileSettingsModal .form-label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    #profileSettingsModal .form-control {
+        border-radius: 8px;
+        padding: 0.75rem;
+        border: 1px solid #dee2e6;
+    }
+
+    #profileSettingsModal .form-control:focus {
+        border-color: #177dff;
+        box-shadow: 0 0 0 0.2rem rgba(23,125,255,0.25);
+    }
+
+    #profileSettingsModal .btn-primary {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+    </style>
+
+    <!-- Modal Pengaturan KWH -->
+    <div class="modal fade" id="kwhSettingsModal" tabindex="-1" aria-labelledby="kwhSettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="kwhSettingsModalLabel">Pengaturan KWH</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="kwhSettingsTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="consumption-tab" data-bs-toggle="tab" data-bs-target="#consumption" type="button" role="tab">Konsumsi</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="price-tab" data-bs-toggle="tab" data-bs-target="#price" type="button" role="tab">Harga</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="kwhSettingsTabsContent">
+                        <!-- Tab Konsumsi -->
+                        <div class="tab-pane fade show active" id="consumption" role="tabpanel">
+                            <form id="kwhConsumptionForm">
+                                <div class="mb-3">
+                                    <label for="maxConsumption" class="form-label">Batas Maksimal Konsumsi (kWh)</label>
+                                    <input type="number" class="form-control" id="maxConsumption" min="100" max="10000" step="100" required>
+                                    <small class="form-text text-muted">Masukkan batas maksimal konsumsi listrik dalam kWh (100-10000)</small>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
+                            </form>
+                        </div>
+                        <!-- Tab Harga -->
+                        <div class="tab-pane fade" id="price" role="tabpanel">
+                            <form id="kwhPriceForm">
+                                <div class="mb-3">
+                                    <label for="electricityRate" class="form-label">Tarif Listrik (Rp/kWh)</label>
+                                    <input type="number" class="form-control" id="electricityRate" min="500" max="5000" step="0.01" required>
+                                    <small class="form-text text-muted">Masukkan tarif listrik per kWh (Rp 500 - Rp 5000)</small>
+                                </div>
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-info-circle"></i> Tarif default PLN adalah Rp 1.699,53/kWh
+                                </div>
+                                <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    /* Styling untuk modal pengaturan KWH */
+    #kwhSettingsModal .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    #kwhSettingsModal .modal-header {
+        border-bottom: 1px solid #eee;
+        padding: 1.5rem;
+    }
+
+    #kwhSettingsModal .modal-body {
+        padding: 1.5rem;
+    }
+
+    #kwhSettingsModal .form-label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    #kwhSettingsModal .form-control {
+        border-radius: 8px;
+        padding: 0.75rem;
+        border: 1px solid #dee2e6;
+    }
+
+    #kwhSettingsModal .form-control:focus {
+        border-color: #177dff;
+        box-shadow: 0 0 0 0.2rem rgba(23,125,255,0.25);
+    }
+
+    #kwhSettingsModal .btn-primary {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    #kwhSettingsModal .form-text {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+    </style>
+
+    <script>
+    // Initialize summary charts
+    let dailyConsumptionChart = null;
+    let phasePowerDistributionChart = null;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded. Initializing summary section...');
+        
+        // Initialize summary filter with current date and past month
+        const today = new Date();
+        const pastMonth = new Date();
+        pastMonth.setMonth(today.getMonth() - 1);
+        
+        document.getElementById('summaryDateStart').valueAsDate = pastMonth;
+        document.getElementById('summaryDateEnd').valueAsDate = today;
+        
+        // Initialize summary charts
+        initializeSummaryCharts();
+        
+        // Apply summary filter on load
+        applySummaryFilter();
+        
+        // Event listeners for summary filter
+        document.getElementById('applySummaryFilter').addEventListener('click', applySummaryFilter);
+        
+        // Event listener for reset filter button
+        document.getElementById('resetSummaryFilter').addEventListener('click', function() {
+            // Clear the custom filter flags
+            localStorage.removeItem('summaryFilterActive');
+            localStorage.removeItem('summaryFilterStart');
+            localStorage.removeItem('summaryFilterEnd');
+            
+            // Reset period selector to default
+            document.getElementById('summaryPeriod').value = 'day';
+            
+            // Set date range to today
+            const today = new Date();
+            document.getElementById('summaryDateStart').valueAsDate = today;
+            document.getElementById('summaryDateEnd').valueAsDate = today;
+            
+            // Update the summary with latest data
+            updateFilteredSummary();
+            
+            showNotification('Filter telah direset', 'success');
+        });
+        
+        // Event listener for period selection
+        document.getElementById('summaryPeriod').addEventListener('change', function() {
+            const period = this.value;
+            if (period !== 'custom') {
+                // Clear the custom filter flag when switching to a preset period
+                localStorage.removeItem('summaryFilterActive');
+                localStorage.removeItem('summaryFilterStart');
+                localStorage.removeItem('summaryFilterEnd');
+                
+                setDateRangeByPeriod(period);
+            }
+        });
+        
+        // Event listeners for summary export buttons
+        document.getElementById('summaryExportPDF').addEventListener('click', exportSummaryToPDF);
+        document.getElementById('summaryExportExcel').addEventListener('click', exportSummaryToExcel);
+    });
+    
+    // Apply summary filter
+    async function applySummaryFilter() {
+        try {
+            const startDate = new Date(document.getElementById('summaryDateStart').value);
+            const endDate = new Date(document.getElementById('summaryDateEnd').value);
+            
+            // Set end date to end of day
+            endDate.setHours(23, 59, 59, 999);
+            
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                showNotification('Silakan pilih tanggal yang valid', 'warning');
+                return;
+            }
+            
+            if (startDate > endDate) {
+                showNotification('Tanggal mulai harus sebelum tanggal selesai', 'warning');
+                return;
+            }
+            
+            // Set a flag in localStorage to indicate a custom filter is active
+            localStorage.setItem('summaryFilterActive', 'true');
+            localStorage.setItem('summaryFilterStart', startDate.toISOString());
+            localStorage.setItem('summaryFilterEnd', endDate.toISOString());
+            
+            // Show loading indicator
+            showNotification('Memuat data ringkasan...', 'info');
+            
+            try {
+                // Try to fetch from API first
+                const response = await fetch(`api/get_summary_data.php?start=${startDate.toISOString()}&end=${endDate.toISOString()}`);
+                const result = await response.json();
+                
+                if (result.status === 'success' && result.data) {
+                    updateSummaryData(result.data);
+                    showNotification('Data ringkasan berhasil diperbarui', 'success');
+                    return; // Exit if API call succeeds
+                } else {
+                    throw new Error(result.message || 'Data dari API tidak valid');
+                }
+            } catch (apiError) {
+                console.warn('API error, using fallback calculation:', apiError);
+                // Continue to fallback calculation
+            }
+            
+            // If API fails, use table data as fallback
+            fallbackSummaryCalculation();
+            showNotification('Data ringkasan dihitung dari data tabel', 'info');
+            
+        } catch (error) {
+            console.error('Error in summary filter:', error);
+            showNotification('Gagal memperbarui data ringkasan: ' + error.message, 'error');
+        }
+    }
+    
+    // Update summary data with API result
+    function updateSummaryData(data) {
+        // Update summary cards
+        document.getElementById('summary-total-energy').textContent = data.total_energy.toFixed(2) + ' kWh';
+        document.getElementById('summary-avg-power').textContent = data.avg_power.toFixed(0) + ' W';
+        document.getElementById('summary-warnings').textContent = data.warning_count + ' Event';
+        document.getElementById('summary-power-factor').textContent = data.avg_pf.toFixed(2);
+        
+        // Calculate total cost for the period
+        const totalCost = calculateElectricityCost(data.total_energy);
+        
+        // Update total cost display
+        document.getElementById('summary-total-cost').textContent = formatRupiah(totalCost);
+        
+        // Update power factor card color
+        const pfCard = document.getElementById('summary-power-factor').closest('.card-stats');
+        if (pfCard) {
+            pfCard.className = 'card card-stats ' + (data.avg_pf < 0.85 ? 'card-danger' : 'card-success');
+        }
+        
+        // Update daily consumption chart
+        updateDailyConsumptionChart(data.daily_consumption);
+        
+        // Update phase distribution chart
+        updatePhaseDistributionChart(data.phase_distribution);
+    }
+    
+    // Fallback to calculate summary from table data
+    function fallbackSummaryCalculation() {
+        console.log('Using fallback calculation for summary data');
+        
+        const startDate = new Date(document.getElementById('summaryDateStart').value);
+        const endDate = new Date(document.getElementById('summaryDateEnd').value);
+        endDate.setHours(23, 59, 59, 999);
+        
+        const table = $('#kwh-table').DataTable();
+        const filteredData = [];
+        
+        // Filter data by date range
+        table.rows().every(function() {
+            const rowData = this.data();
+            if (rowData && rowData.timestamp) {
+                const rowDate = new Date(rowData.timestamp);
+                if (rowDate >= startDate && rowDate <= endDate) {
+                    filteredData.push(rowData);
+                }
+            }
+        });
+        
+        // Calculate summary statistics
+        let totalEnergy = 0;
+        let totalPowerR = 0;
+        let totalPowerS = 0;
+        let totalPowerT = 0;
+        let sumPowerFactor = 0;
+        let warningCount = 0;
+        const dailyConsumption = {};
+        
+        filteredData.forEach(row => {
+            totalEnergy = Math.max(totalEnergy, row.energy_total || 0);
+            totalPowerR += row.power_r || 0;
+            totalPowerS += row.power_s || 0;
+            totalPowerT += row.power_t || 0;
+            sumPowerFactor += row.power_factor || 0;
+            
+            // Count warnings
+            if ((row.voltage_r < 198 || row.voltage_r > 242) || 
+                (row.voltage_s < 198 || row.voltage_s > 242) || 
+                (row.voltage_t < 198 || row.voltage_t > 242) ||
+                (row.power_factor < 0.85)) {
+                warningCount++;
+            }
+            
+            // Group by day for the chart
+            if (row.timestamp) {
+                const day = new Date(row.timestamp).toLocaleDateString('id-ID');
+                if (!dailyConsumption[day]) {
+                    dailyConsumption[day] = 0;
+                }
+                dailyConsumption[day] = Math.max(dailyConsumption[day], row.energy_total || 0);
+            }
+        });
+        
+        // Calculate averages
+        const avgPowerFactor = filteredData.length > 0 ? sumPowerFactor / filteredData.length : 0;
+        const avgPower = (totalPowerR + totalPowerS + totalPowerT) / (filteredData.length * 3);
+        
+        // Calculate total cost for the period
+        const totalCost = calculateElectricityCost(totalEnergy);
+        
+        // Update summary cards
+        document.getElementById('summary-total-energy').textContent = totalEnergy.toFixed(2) + ' kWh';
+        document.getElementById('summary-avg-power').textContent = avgPower.toFixed(0) + ' W';
+        document.getElementById('summary-warnings').textContent = warningCount + ' Event';
+        document.getElementById('summary-power-factor').textContent = avgPowerFactor.toFixed(2);
+        
+        // Add or update total cost display
+        let costElement = document.getElementById('summary-total-cost');
+        if (!costElement) {
+            // Create cost card if it doesn't exist
+            const costCardContainer = document.createElement('div');
+            costCardContainer.className = 'col-md-3 mt-3';
+            costCardContainer.innerHTML = `
+                <div class="card card-stats card-success">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                    <p class="card-category">Total Biaya</p>
+                                    <h4 class="card-title" id="summary-total-cost">${formatRupiah(totalCost)}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Try to find the summary cards container in a more reliable way
+            const summaryTotalEnergy = document.getElementById('summary-total-energy');
+            if (summaryTotalEnergy) {
+                // If we found the energy element, go up to find the row that contains all cards
+                const summarySection = summaryTotalEnergy.closest('.row');
+                if (summarySection) {
+                    summarySection.appendChild(costCardContainer);
+                    console.log('Added cost card to summary section');
+                } else {
+                    // Fallback: find the summary section by the cards container
+                    const summaryCardsContainer = document.querySelector('.card-body .row');
+                    if (summaryCardsContainer) {
+                        summaryCardsContainer.appendChild(costCardContainer);
+                        console.log('Added cost card to cards container');
+                    } else {
+                        console.error('Could not find summary cards row to add cost card');
+                    }
+                }
+            } else {
+                console.error('Could not find summary-total-energy element to locate summary section');
+            }
+        } else {
+            // Update existing cost element
+            costElement.textContent = formatRupiah(totalCost);
+        }
+        
+        // Update power factor card color
+        const pfCard = document.getElementById('summary-power-factor').closest('.card-stats');
+        if (pfCard) {
+            pfCard.className = 'card card-stats ' + (avgPowerFactor < 0.85 ? 'card-danger' : 'card-success');
+        }
+        
+        // Update charts with fallback data
+        const dailyConsumptionData = [];
+        Object.keys(dailyConsumption).forEach(day => {
+            dailyConsumptionData.push({
+                date: day,
+                value: dailyConsumption[day]
+            });
+        });
+        
+        // Sort by date
+        dailyConsumptionData.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Update charts
+        updateDailyConsumptionChart(dailyConsumptionData);
+        
+        const phaseDistribution = {
+            phase_r: totalPowerR / filteredData.length,
+            phase_s: totalPowerS / filteredData.length,
+            phase_t: totalPowerT / filteredData.length
+        };
+        updatePhaseDistributionChart(phaseDistribution);
+    }
+    
+    // Update daily consumption chart
+    function updateDailyConsumptionChart(data) {
+        if (!dailyConsumptionChart || !Array.isArray(data)) {
+            console.warn('Cannot update daily consumption chart - chart not initialized or data invalid');
+            return;
+        }
+        
+        try {
+            // Prepare data for chart
+            const labels = data.map(item => item.date);
+            const values = data.map(item => item.value);
+            
+            // Update chart
+            dailyConsumptionChart.data.labels = labels;
+            dailyConsumptionChart.data.datasets[0].data = values;
+            dailyConsumptionChart.update();
+            
+            console.log('Daily consumption chart updated with', data.length, 'data points');
+        } catch (error) {
+            console.error('Error updating daily consumption chart:', error);
+        }
+    }
+    
+    // Update phase distribution chart
+    function updatePhaseDistributionChart(data) {
+        if (!phasePowerDistributionChart || !data) return;
+        
+        // Prepare data for chart
+        const values = [
+            data.phase_r || 0,
+            data.phase_s || 0,
+            data.phase_t || 0
+        ];
+        
+        // Update chart
+        phasePowerDistributionChart.data.datasets[0].data = values;
+        phasePowerDistributionChart.update();
+    }
+    
+    // Export summary to PDF
+    function exportSummaryToPDF() {
+        try {
+            // Check if chart elements exist
+            const dailyChartElement = document.getElementById('dailyConsumptionChart');
+            const phaseChartElement = document.getElementById('phasePowerDistributionChart');
+            
+            if (!dailyChartElement || !phaseChartElement) {
+                console.error('Chart elements not found, cannot export to PDF');
+                showNotification('Grafik tidak tersedia, tidak dapat mengekspor ke PDF', 'warning');
+                return;
+            }
+            
+            // Create new jsPDF instance
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('portrait', 'mm', 'a4');
+            
+            // Add title
+            doc.setFontSize(16);
+            doc.text('Laporan Ringkasan KWH Meter - Stasiun Geofisika Sleman', 15, 15);
+            
+            // Add date range
+            doc.setFontSize(10);
+            const startDate = new Date(document.getElementById('summaryDateStart').value);
+            const endDate = new Date(document.getElementById('summaryDateEnd').value);
+            const today = new Date();
+            
+            doc.text(`Periode: ${startDate.toLocaleDateString('id-ID')} - ${endDate.toLocaleDateString('id-ID')}`, 15, 25);
+            doc.text(`Dicetak pada: ${today.toLocaleDateString('id-ID')} ${today.toLocaleTimeString('id-ID')}`, 15, 30);
+            
+            // Add summary data
+            doc.setFontSize(12);
+            doc.text('Ringkasan Statistik:', 15, 40);
+            
+            const totalEnergy = document.getElementById('summary-total-energy').textContent;
+            const avgPower = document.getElementById('summary-avg-power').textContent;
+            const warnings = document.getElementById('summary-warnings').textContent;
+            const powerFactor = document.getElementById('summary-power-factor').textContent;
+            
+            // Calculate cost from energy value
+            const kwhValue = parseFloat(totalEnergy.replace(' kWh', ''));
+            const totalCost = formatRupiah(calculateElectricityCost(kwhValue));
+            
+            doc.text(`Total Konsumsi: ${totalEnergy}`, 20, 50);
+            doc.text(`Total Biaya: ${totalCost}`, 20, 55);
+            doc.text(`Daya Rata-rata: ${avgPower}`, 20, 60);
+            doc.text(`Jumlah Peringatan: ${warnings}`, 20, 65);
+            doc.text(`Power Factor Rata-rata: ${powerFactor}`, 20, 70);
+            
+            // Add daily consumption chart
+            doc.setFontSize(12);
+            doc.text('Grafik Konsumsi Energi Per Hari:', 15, 80);
+            
+            // Get chart images
+            const dailyChartImg = dailyChartElement.toDataURL('image/png');
+            doc.addImage(dailyChartImg, 'PNG', 15, 85, 180, 70);
+            
+            // Add phase distribution chart
+            doc.text('Distribusi Daya Per Fase:', 15, 165);
+            
+            const phaseChartImg = phaseChartElement.toDataURL('image/png');
+            doc.addImage(phaseChartImg, 'PNG', 60, 170, 80, 80);
+            
+            // Get table data for report (if there's data)
+            const table = $('#kwh-table').DataTable();
+            const filteredData = [];
+            
+            // Filter data by date range
+            table.rows().every(function() {
+                const rowData = this.data();
+                if (rowData && rowData.timestamp) {
+                    const rowDate = new Date(rowData.timestamp);
+                    if (rowDate >= startDate && rowDate <= endDate) {
+                        filteredData.push(rowData);
+                    }
+                }
+            });
+            
+            // Add a new page for table data if there's data
+            if (filteredData.length > 0) {
+                doc.addPage();
+                doc.setFontSize(14);
+                doc.text('Data Pengukuran Periode Terpilih', 15, 15);
+                
+                // Create simplified table data
+                const tableHeaders = ['Waktu', 'Daya Total (W)', 'Energi (kWh)', 'Biaya (Rp)', 'PF'];
+                const tableData = filteredData.map(row => {
+                    const energyValue = row.energy_total || 0;
+                    const costValue = calculateElectricityCost(energyValue);
+                    return [
+                        new Date(row.timestamp).toLocaleString('id-ID'),
+                        row.power_total?.toFixed(0) || '0',
+                        energyValue.toFixed(2),
+                        formatRupiah(costValue).replace('Rp ', ''), // Remove Rp prefix to save space
+                        row.power_factor?.toFixed(2) || '0'
+                    ];
+                });
+                
+                // Add table (max 20 rows)
+                doc.autoTable({
+                    head: [tableHeaders],
+                    body: tableData.slice(0, 20),
+                    startY: 20,
+                    styles: {
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    headStyles: {
+                        fillColor: [23, 125, 255],
+                        textColor: 255
+                    }
+                });
+                
+                // Add note if there are more rows
+                if (tableData.length > 20) {
+                    doc.setFontSize(9);
+                    doc.text(`* Menampilkan 20 dari ${tableData.length} baris data`, 15, doc.autoTable.previous.finalY + 10);
+                }
+            }
+            
+            // Save the PDF
+            doc.save('laporan_ringkasan_kwh.pdf');
+            
+            showNotification('Laporan PDF berhasil diunduh', 'success');
+        } catch (error) {
+            console.error('Error exporting summary to PDF:', error);
+            showNotification('Gagal membuat PDF ringkasan: ' + error.message, 'error');
+        }
+    }
+    
+    // Export summary to Excel
+    function exportSummaryToExcel() {
+        try {
+            // Check if we have chart data
+            if (!document.getElementById('summary-total-energy')) {
+                showNotification('Data ringkasan tidak tersedia', 'warning');
+                return;
+            }
+            
+            // Create workbook and worksheets
+            const wb = XLSX.utils.book_new();
+            
+            // Get date range
+            const startDate = new Date(document.getElementById('summaryDateStart').value);
+            const endDate = new Date(document.getElementById('summaryDateEnd').value);
+            
+            // Calculate total energy and cost
+            const totalEnergyText = document.getElementById('summary-total-energy').textContent;
+            const totalEnergy = parseFloat(totalEnergyText.replace(' kWh', ''));
+            const totalCost = formatRupiah(calculateElectricityCost(totalEnergy));
+            
+            // Sheet 1: Summary data
+            const summaryData = [
+                ['Laporan Ringkasan KWH Meter - Stasiun Geofisika Sleman'],
+                [`Periode: ${startDate.toLocaleDateString('id-ID')} - ${endDate.toLocaleDateString('id-ID')}`],
+                [`Dicetak pada: ${new Date().toLocaleDateString('id-ID')} ${new Date().toLocaleTimeString('id-ID')}`],
+                [],
+                ['Ringkasan Statistik'],
+                ['Total Konsumsi', totalEnergyText],
+                ['Total Biaya', totalCost],
+                ['Daya Rata-rata', document.getElementById('summary-avg-power').textContent],
+                ['Jumlah Peringatan', document.getElementById('summary-warnings').textContent],
+                ['Power Factor Rata-rata', document.getElementById('summary-power-factor').textContent]
+            ];
+            
+            // Create summary worksheet
+            const summaryWs = XLSX.utils.aoa_to_sheet(summaryData);
+            
+            // Set column widths
+            const colWidths = [
+                { wch: 25 }, // A
+                { wch: 20 }  // B
+            ];
+            summaryWs['!cols'] = colWidths;
+            
+            // Add summary worksheet to workbook
+            XLSX.utils.book_append_sheet(wb, summaryWs, 'Ringkasan');
+            
+            // Sheet 2: Daily Consumption Data
+            if (dailyConsumptionChart && dailyConsumptionChart.data.labels.length > 0) {
+                const dailyData = [
+                    ['Konsumsi Energi Per Hari'],
+                    [],
+                    ['Tanggal', 'Konsumsi (kWh)', 'Biaya (Rp)']
+                ];
+                
+                // Add data rows
+                const labels = dailyConsumptionChart.data.labels;
+                const data = dailyConsumptionChart.data.datasets[0].data;
+                
+                for (let i = 0; i < labels.length; i++) {
+                    const consumption = data[i] || 0;
+                    const cost = calculateElectricityCost(consumption);
+                    dailyData.push([
+                        labels[i], 
+                        consumption,
+                        cost
+                    ]);
+                }
+                
+                // Create daily consumption worksheet
+                const dailyWs = XLSX.utils.aoa_to_sheet(dailyData);
+                
+                // Add worksheet to workbook
+                XLSX.utils.book_append_sheet(wb, dailyWs, 'Konsumsi Per Hari');
+            }
+            
+            // Sheet 3: Phase Distribution
+            if (phasePowerDistributionChart) {
+                const phaseData = [
+                    ['Distribusi Daya Per Fase'],
+                    [],
+                    ['Fase', 'Daya Rata-rata (W)', 'Persentase (%)']
+                ];
+                
+                // Add data rows
+                const phaseLabels = phasePowerDistributionChart.data.labels;
+                const phaseValues = phasePowerDistributionChart.data.datasets[0].data;
+                const total = phaseValues.reduce((sum, value) => sum + value, 0);
+                
+                for (let i = 0; i < phaseLabels.length; i++) {
+                    const percentage = total > 0 ? (phaseValues[i] / total) * 100 : 0;
+                    phaseData.push([
+                        phaseLabels[i],
+                        phaseValues[i].toFixed(2),
+                        percentage.toFixed(2) + '%'
+                    ]);
+                }
+                
+                // Create phase distribution worksheet
+                const phaseWs = XLSX.utils.aoa_to_sheet(phaseData);
+                
+                // Add worksheet to workbook
+                XLSX.utils.book_append_sheet(wb, phaseWs, 'Distribusi Fase');
+            }
+            
+            // Sheet 4: Filtered Table Data
+            const table = $('#kwh-table').DataTable();
+            const filteredData = [];
+            
+            // Filter data by date range
+            table.rows().every(function() {
+                const rowData = this.data();
+                if (rowData && rowData.timestamp) {
+                    const rowDate = new Date(rowData.timestamp);
+                    if (rowDate >= startDate && rowDate <= endDate) {
+                        filteredData.push(rowData);
+                    }
+                }
+            });
+            
+            if (filteredData.length > 0) {
+                // Get headers
+                const tableHeaders = [
+                    'Meter ID', 'Waktu', 
+                    'Tegangan R (V)', 'Tegangan S (V)', 'Tegangan T (V)',
+                    'Arus R (A)', 'Arus S (A)', 'Arus T (A)',
+                    'Daya R (W)', 'Daya S (W)', 'Daya T (W)',
+                    'Total Daya (W)', 'Total Energi (kWh)', 'Power Factor'
+                ];
+                
+                // Create data array with headers
+                const tableData = [tableHeaders];
+                
+                // Add data rows
+                filteredData.forEach(row => {
+                    tableData.push([
+                        row.meter_id,
+                        new Date(row.timestamp).toLocaleString('id-ID'),
+                        row.voltage_r?.toFixed(1) || '0',
+                        row.voltage_s?.toFixed(1) || '0',
+                        row.voltage_t?.toFixed(1) || '0',
+                        row.current_r?.toFixed(2) || '0',
+                        row.current_s?.toFixed(2) || '0',
+                        row.current_t?.toFixed(2) || '0',
+                        row.power_r?.toFixed(0) || '0',
+                        row.power_s?.toFixed(0) || '0',
+                        row.power_t?.toFixed(0) || '0',
+                        row.power_total?.toFixed(0) || '0',
+                        row.energy_total?.toFixed(2) || '0',
+                        row.power_factor?.toFixed(2) || '0'
+                    ]);
+                });
+                
+                // Create table worksheet
+                const tableWs = XLSX.utils.aoa_to_sheet(tableData);
+                
+                // Add worksheet to workbook
+                XLSX.utils.book_append_sheet(wb, tableWs, 'Data Pengukuran');
+            }
+            
+            // Save the Excel file
+            XLSX.writeFile(wb, 'laporan_ringkasan_kwh.xlsx');
+            
+            showNotification('Laporan Excel berhasil diunduh', 'success');
+        } catch (error) {
+            console.error('Error exporting summary to Excel:', error);
+            showNotification('Gagal membuat Excel ringkasan: ' + error.message, 'error');
+        }
+    }
+    
+    // Export summary as Excel
+    document.getElementById('summaryExportExcel').addEventListener('click', function() {
+        try {
+            // Get date range for the sheet name
+            const startDate = new Date(document.getElementById('summaryDateStart').value);
+            const endDate = new Date(document.getElementById('summaryDateEnd').value);
+            const startDateStr = startDate.toLocaleDateString('id-ID');
+            const endDateStr = endDate.toLocaleDateString('id-ID');
+            
+            // Get total energy and calculate cost
+            const totalEnergyText = document.getElementById('summary-total-energy').textContent;
+            const totalEnergy = parseFloat(totalEnergyText.replace(' kWh', ''));
+            const totalCostText = document.getElementById('summary-total-cost')?.textContent || formatRupiah(calculateElectricityCost(totalEnergy));
+            
+            const wb = XLSX.utils.book_new();
+            
+            // Create summary sheet
+            const summaryData = [
+                ['Laporan Konsumsi Listrik', ''],
+                ['Periode', `${startDateStr} - ${endDateStr}`],
+                ['', ''],
+                ['Parameter', 'Nilai'],
+                ['Total Energi', totalEnergyText],
+                ['Total Biaya', totalCostText],
+                ['Rata-rata Daya', document.getElementById('summary-avg-power').textContent],
+                ['Power Factor', document.getElementById('summary-power-factor').textContent],
+                ['Jumlah Peringatan', document.getElementById('summary-warnings').textContent]
+            ];
+            
+            const summaryWs = XLSX.utils.aoa_to_sheet(summaryData);
+            XLSX.utils.book_append_sheet(wb, summaryWs, 'Ringkasan');
+            
+            // Add daily consumption to Excel
+            if (dailyConsumptionChart && dailyConsumptionChart.data) {
+                const dailyData = [
+                    ['Tanggal', 'Konsumsi (kWh)', 'Biaya (Rp)']
+                ];
+                
+                const labels = dailyConsumptionChart.data.labels;
+                const values = dailyConsumptionChart.data.datasets[0].data;
+                
+                for (let i = 0; i < labels.length; i++) {
+                    const value = values[i] || 0;
+                    const cost = calculateElectricityCost(value);
+                    dailyData.push([
+                        labels[i],
+                        value,
+                        cost
+                    ]);
+                }
+                
+                const dailyWs = XLSX.utils.aoa_to_sheet(dailyData);
+                XLSX.utils.book_append_sheet(wb, dailyWs, 'Konsumsi Harian');
+            }
+            
+            // Add phase distribution to Excel
+            if (phasePowerDistributionChart && phasePowerDistributionChart.data) {
+                const phaseData = [
+                    ['Fase', 'Daya (W)']
+                ];
+                
+                const labels = phasePowerDistributionChart.data.labels;
+                const values = phasePowerDistributionChart.data.datasets[0].data;
+                
+                for (let i = 0; i < labels.length; i++) {
+                    phaseData.push([
+                        labels[i],
+                        values[i] || 0
+                    ]);
+                }
+                
+                const phaseWs = XLSX.utils.aoa_to_sheet(phaseData);
+                XLSX.utils.book_append_sheet(wb, phaseWs, 'Distribusi Fase');
+            }
+            
+            // Save Excel file
+            const fileName = `laporan_konsumsi_listrik_${startDateStr}_${endDateStr}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+            
+            showNotification('File Excel berhasil diunduh', 'success');
+        } catch (error) {
+            console.error('Error exporting summary to Excel:', error);
+            showNotification('Gagal membuat file Excel: ' + error.message, 'error');
+        }
+    });
+
+    // Helper function to apply a custom filter programmatically
+    async function applyCustomSummaryFilter(startDate, endDate) {
+        try {
+            // Try to fetch from API first
+            const response = await fetch(`api/get_summary_data.php?start=${startDate.toISOString()}&end=${endDate.toISOString()}`);
+            const result = await response.json();
+            
+            if (result.status === 'success' && result.data) {
+                updateSummaryData(result.data);
+                return; // Exit if API call succeeds
+            } else {
+                // If API fails, use fallback calculation without showing notification
+                fallbackSummaryCalculationWithDates(startDate, endDate);
+            }
+        } catch (error) {
+            console.warn('Error maintaining filter:', error);
+            // Use fallback calculation without showing notification
+            fallbackSummaryCalculationWithDates(startDate, endDate);
+        }
+    }
+    
+    // Initialize summary charts
+    function initializeSummaryCharts() {
+        // Check if chart elements exist
+        if (!checkChartElementsExist()) {
+            console.warn('Summary chart elements not found in the DOM');
+            return;
+        }
+        
+        // Daily Consumption Chart
+        const dailyCtx = document.getElementById('dailyConsumptionChart').getContext('2d');
+        dailyConsumptionChart = new Chart(dailyCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Konsumsi Energi (kWh)',
+                    data: [],
+                    backgroundColor: 'rgba(23, 125, 255, 0.6)',
+                    borderColor: 'rgb(23, 125, 255)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Konsumsi (kWh)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tanggal'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Phase Power Distribution Chart
+        const phaseCtx = document.getElementById('phasePowerDistributionChart').getContext('2d');
+        phasePowerDistributionChart = new Chart(phaseCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Fase R', 'Fase S', 'Fase T'],
+                datasets: [{
+                    data: [0, 0, 0],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(255, 205, 86, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value.toFixed(1)} W (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Helper function to check if all required chart elements exist
+    function checkChartElementsExist() {
+        const requiredElements = ['dailyConsumptionChart', 'phasePowerDistributionChart'];
+        let allExist = true;
+        
+        requiredElements.forEach(elementId => {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                console.error(`Required element '${elementId}' not found in the DOM`);
+                allExist = false;
+            }
+        });
+        
+        return allExist;
+    }
+    
+    // Set date range based on selected period
+    function setDateRangeByPeriod(period) {
+        const today = new Date();
+        let startDate = new Date();
+        
+        switch(period) {
+            case 'day':
+                // Today
+                startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                break;
+            case 'week':
+                // Last 7 days
+                startDate.setDate(today.getDate() - 7);
+                break;
+            case 'month':
+                // Current month
+                startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                break;
+            case 'year':
+                // Current year
+                startDate = new Date(today.getFullYear(), 0, 1);
+                break;
+        }
+        
+        document.getElementById('summaryDateStart').valueAsDate = startDate;
+        document.getElementById('summaryDateEnd').valueAsDate = today;
+        
+        // Apply filter after setting dates
+        applySummaryFilter();
+    }
+    
+    // Fallback calculation with specific date range
+    function fallbackSummaryCalculationWithDates(startDate, endDate) {
+        const table = $('#kwh-table').DataTable();
+        const allData = table.rows().data();
+        const filteredData = [];
+        
+        // Filter data by date range
+        for (let i = 0; i < allData.length; i++) {
+            const row = allData[i];
+            if (row && row.timestamp) {
+                const rowDate = new Date(row.timestamp);
+                if (rowDate >= startDate && rowDate <= endDate) {
+                    filteredData.push(row);
+                }
+            }
+        }
+        
+        // Calculate summary statistics
+        let totalEnergy = 0;
+        let totalPowerR = 0;
+        let totalPowerS = 0;
+        let totalPowerT = 0;
+        let sumPowerFactor = 0;
+        let warningCount = 0;
+        const dailyConsumption = {};
+        
+        filteredData.forEach(row => {
+            totalEnergy = Math.max(totalEnergy, row.energy_total || 0);
+            totalPowerR += row.power_r || 0;
+            totalPowerS += row.power_s || 0;
+            totalPowerT += row.power_t || 0;
+            sumPowerFactor += row.power_factor || 0;
+            
+            // Count warnings
+            if ((row.voltage_r < 198 || row.voltage_r > 242) || 
+                (row.voltage_s < 198 || row.voltage_s > 242) || 
+                (row.voltage_t < 198 || row.voltage_t > 242) ||
+                (row.power_factor < 0.85)) {
+                warningCount++;
+            }
+            
+            // Group by day for the chart
+            if (row.timestamp) {
+                const day = new Date(row.timestamp).toLocaleDateString('id-ID');
+                if (!dailyConsumption[day]) {
+                    dailyConsumption[day] = 0;
+                }
+                dailyConsumption[day] = Math.max(dailyConsumption[day], row.energy_total || 0);
+            }
+        });
+        
+        // Calculate averages
+        const avgPowerFactor = filteredData.length > 0 ? sumPowerFactor / filteredData.length : 0;
+        const avgPower = filteredData.length > 0 ? (totalPowerR + totalPowerS + totalPowerT) / (filteredData.length * 3) : 0;
+        
+        // Calculate total cost for the period
+        const totalCost = calculateElectricityCost(totalEnergy);
+        
+        // Update summary cards
+        document.getElementById('summary-total-energy').textContent = totalEnergy.toFixed(2) + ' kWh';
+        document.getElementById('summary-avg-power').textContent = avgPower.toFixed(0) + ' W';
+        document.getElementById('summary-warnings').textContent = warningCount + ' Event';
+        document.getElementById('summary-power-factor').textContent = avgPowerFactor.toFixed(2);
+        
+        // Update total cost display
+        document.getElementById('summary-total-cost').textContent = formatRupiah(totalCost);
+        
+        // Update power factor card color
+        const pfCard = document.getElementById('summary-power-factor').closest('.card-stats');
+        if (pfCard) {
+            pfCard.className = 'card card-stats ' + (avgPowerFactor < 0.85 ? 'card-danger' : 'card-success');
+        }
+        
+        // Update charts with filtered data
+        const dailyConsumptionData = [];
+        Object.keys(dailyConsumption).forEach(day => {
+            dailyConsumptionData.push({
+                date: day,
+                value: dailyConsumption[day]
+            });
+        });
+        
+        // Sort by date
+        dailyConsumptionData.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Update charts
+        updateDailyConsumptionChart(dailyConsumptionData);
+        
+        const phaseDistribution = {
+            phase_r: totalPowerR / (filteredData.length || 1),
+            phase_s: totalPowerS / (filteredData.length || 1),
+            phase_t: totalPowerT / (filteredData.length || 1)
+        };
+        updatePhaseDistributionChart(phaseDistribution);
+    }
+    </script>
+
+    <style>
+    /* Styling untuk tabel */
+</style>
+  </body>
+</html>
