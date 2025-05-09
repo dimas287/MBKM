@@ -1,0 +1,324 @@
+<?php
+// Aktifkan error reporting untuk debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // Matikan display error
+ini_set('log_errors', 1); // Aktifkan error logging
+
+// Mulai session
+session_start();
+
+// Set header untuk JSON
+header('Content-Type: application/json');
+
+try {
+require_once '../config/database.php';
+
+// Fungsi untuk login
+    function login($conn, $username, $password) {
+    try {
+        $stmt = $conn->prepare("SELECT * FROM admin WHERE username = :username OR email = :email");
+        $stmt->execute(['username' => $username, 'email' => $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            // Set session
+            $_SESSION['admin_id'] = $user['id'];
+            $_SESSION['admin_username'] = $user['username'];
+            $_SESSION['admin_email'] = $user['email'];
+            $_SESSION['admin_nama'] = $user['nama_lengkap'];
+            $_SESSION['admin_role'] = $user['role'];
+            return ['status' => 'success', 'message' => 'Login berhasil'];
+        }
+        return ['status' => 'error', 'message' => 'Username/email atau password salah'];
+    } catch(PDOException $e) {
+            error_log("Login error: " . $e->getMessage());
+        return ['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()];
+    }
+}
+
+// Fungsi untuk cek status login
+function isLoggedIn() {
+    return isset($_SESSION['admin_id']);
+}
+
+// Fungsi untuk logout
+function logout() {
+    session_unset();
+    session_destroy();
+    return ['status' => 'success', 'message' => 'Logout berhasil'];
+}
+
+// Fungsi untuk mendapatkan data admin yang sedang login
+function getCurrentAdmin() {
+    if (!isLoggedIn()) {
+        return null;
+    }
+    return [
+        'id' => $_SESSION['admin_id'],
+        'username' => $_SESSION['admin_username'],
+        'email' => $_SESSION['admin_email'],
+        'nama' => $_SESSION['admin_nama'],
+        'role' => $_SESSION['admin_role']
+    ];
+}
+
+    // Fungsi untuk mendapatkan data profil
+    function getProfile($conn) {
+        try {
+            if (!isLoggedIn()) {
+                return ['status' => 'error', 'message' => 'Not authenticated'];
+            }
+
+            $stmt = $conn->prepare("SELECT nama_lengkap as nama, email FROM admin WHERE id = ?");
+            $stmt->execute([$_SESSION['admin_id']]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($user) {
+                return [
+                    'status' => 'success',
+                    'data' => $user
+                ];
+            } else {
+                return [
+                    'status' => 'error',
+                    'message' => 'User tidak ditemukan'
+                ];
+            }
+        } catch (PDOException $e) {
+            error_log("Get profile error: " . $e->getMessage());
+            return [
+                'status' => 'error',
+                'message' => 'Database error: ' . $e->getMessage()
+            ];
+        }
+    }
+
+    // Fungsi untuk memperbarui profil
+    function updateProfile($conn, $nama, $email) {
+        try {
+            if (!isLoggedIn()) {
+                return ['status' => 'error', 'message' => 'Not authenticated'];
+            }
+
+            // Validasi email
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return [
+                    'status' => 'error',
+                    'message' => 'Format email tidak valid'
+                ];
+            }
+
+            // Cek apakah email sudah digunakan oleh admin lain
+            $stmt = $conn->prepare("SELECT id FROM admin WHERE email = ? AND id != ?");
+            $stmt->execute([$email, $_SESSION['admin_id']]);
+            if ($stmt->rowCount() > 0) {
+                return [
+                    'status' => 'error',
+                    'message' => 'Email sudah digunakan'
+                ];
+            }
+
+            // Update profil
+            $stmt = $conn->prepare("UPDATE admin SET nama_lengkap = ?, email = ? WHERE id = ?");
+            $stmt->execute([$nama, $email, $_SESSION['admin_id']]);
+            
+            // Update session
+            $_SESSION['admin_nama'] = $nama;
+            $_SESSION['admin_email'] = $email;
+            
+            return [
+                'status' => 'success',
+                'message' => 'Profil berhasil diperbarui',
+                'data' => [
+                    'nama' => $nama,
+                    'email' => $email
+                ]
+            ];
+        } catch (PDOException $e) {
+            error_log("Update profile error: " . $e->getMessage());
+            return [
+                'status' => 'error',
+                'message' => 'Database error: ' . $e->getMessage()
+            ];
+        }
+    }
+
+    // Fungsi untuk memperbarui password
+    function updatePassword($conn, $current_password, $new_password) {
+        try {
+            if (!isLoggedIn()) {
+                return ['status' => 'error', 'message' => 'Not authenticated'];
+            }
+
+            // Validasi password baru
+            if (strlen($new_password) < 8) {
+                return [
+                    'status' => 'error',
+                    'message' => 'Password baru minimal 8 karakter'
+                ];
+            }
+
+            // Verifikasi password saat ini
+            $stmt = $conn->prepare("SELECT password FROM admin WHERE id = ?");
+            $stmt->execute([$_SESSION['admin_id']]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!password_verify($current_password, $user['password'])) {
+                return [
+                    'status' => 'error',
+                    'message' => 'Password saat ini tidak sesuai'
+                ];
+            }
+
+            // Update password
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $stmt = $conn->prepare("UPDATE admin SET password = ? WHERE id = ?");
+            $stmt->execute([$hashed_password, $_SESSION['admin_id']]);
+            
+            return [
+                'status' => 'success',
+                'message' => 'Password berhasil diperbarui'
+            ];
+        } catch (PDOException $e) {
+            error_log("Update password error: " . $e->getMessage());
+            return [
+                'status' => 'error',
+                'message' => 'Database error: ' . $e->getMessage()
+            ];
+        }
+    }
+
+    // Handle POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $response = ['status' => 'error', 'message' => 'Invalid action'];
+    
+    switch($_POST['action']) {
+        case 'login':
+            if (isset($_POST['username']) && isset($_POST['password'])) {
+                    $response = login($conn, $_POST['username'], $_POST['password']);
+            }
+            break;
+            
+        case 'logout':
+            $response = logout();
+            break;
+            
+        case 'check_auth':
+            $admin = getCurrentAdmin();
+            if ($admin) {
+                $response = ['status' => 'success', 'data' => $admin];
+            } else {
+                $response = ['status' => 'error', 'message' => 'Not authenticated'];
+            }
+            break;
+                
+            case 'get_profile':
+                $response = getProfile($conn);
+                break;
+                
+            case 'update_profile':
+                if (isset($_POST['nama']) && isset($_POST['email'])) {
+                    $response = updateProfile($conn, $_POST['nama'], $_POST['email']);
+                }
+                break;
+                
+            case 'update_password':
+                if (isset($_POST['current_password']) && isset($_POST['new_password'])) {
+                    $response = updatePassword($conn, $_POST['current_password'], $_POST['new_password']);
+                }
+                break;
+
+            case 'forgot_password':
+                $data = json_decode(file_get_contents('php://input'), true);
+                $email = $data['email'] ?? '';
+
+                if (empty($email)) {
+                    echo json_encode(['status' => 'error', 'message' => 'Email tidak boleh kosong']);
+                    exit;
+                }
+
+                // Check if email exists in database
+                $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows === 0) {
+                    echo json_encode(['status' => 'error', 'message' => 'Email tidak ditemukan']);
+                    exit;
+                }
+
+                // Generate reset token
+                $token = bin2hex(random_bytes(32));
+                $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+                // Store token in database
+                $stmt = $conn->prepare("UPDATE users SET reset_token = ?, reset_token_expires = ? WHERE email = ?");
+                $stmt->bind_param("sss", $token, $expires, $email);
+                $stmt->execute();
+
+                // Send reset email
+                $resetLink = "http://" . $_SERVER['HTTP_HOST'] . "/KWHSTAGEOF/user.html?token=" . $token;
+                $to = $email;
+                $subject = "Reset Password - KWH Meter Monitoring";
+                $message = "Klik link berikut untuk reset password Anda:\n\n" . $resetLink . "\n\nLink ini akan kadaluarsa dalam 1 jam.";
+                $headers = "From: noreply@kwhmeter.com";
+
+                if (mail($to, $subject, $message, $headers)) {
+                    echo json_encode(['status' => 'success', 'message' => 'Link reset password telah dikirim ke email Anda']);
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'Gagal mengirim email reset password']);
+                }
+                break;
+
+            case 'reset_password':
+                $data = json_decode(file_get_contents('php://input'), true);
+                $token = $data['token'] ?? '';
+                $newPassword = $data['new_password'] ?? '';
+
+                if (empty($token) || empty($newPassword)) {
+                    echo json_encode(['status' => 'error', 'message' => 'Token dan password baru harus diisi']);
+                    exit;
+                }
+
+                // Verify token
+                $stmt = $conn->prepare("SELECT id FROM users WHERE reset_token = ? AND reset_token_expires > NOW()");
+                $stmt->bind_param("s", $token);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows === 0) {
+                    echo json_encode(['status' => 'error', 'message' => 'Token tidak valid atau sudah kadaluarsa']);
+                    exit;
+                }
+
+                // Update password
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("UPDATE users SET password = ?, reset_token = NULL, reset_token_expires = NULL WHERE reset_token = ?");
+                $stmt->bind_param("ss", $hashedPassword, $token);
+                
+                if ($stmt->execute()) {
+                    echo json_encode(['status' => 'success', 'message' => 'Password berhasil direset']);
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => 'Gagal mereset password']);
+                }
+                break;
+
+            default:
+                echo json_encode(['status' => 'error', 'message' => 'Invalid action']);
+                break;
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+
+} catch (Exception $e) {
+    error_log("General error: " . $e->getMessage());
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'An error occurred: ' . $e->getMessage()
+    ]);
+    exit;
+}
+?> 
